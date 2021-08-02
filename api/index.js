@@ -29,7 +29,7 @@ conn.sync({ force: true }).then(() => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   
     const data = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`);
-    const genres = data.data.results.map(genre => {return{name: genre.name}});
+    const genres = data.data.results.map(genre => {return{id: genre.id, name: genre.name}});
 
     genres.forEach(genre => Category.create(genre));
   });
