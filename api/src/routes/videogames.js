@@ -16,7 +16,7 @@ videogames.get("/", async (req, res) => {
 					return{
 						name: game.name,
 						background_image: game.background_image,
-						genres: game.genres
+						genres: game.genres.map(genre => genre.name)
 					}
 				});
 				games.splice(15);
