@@ -2,6 +2,7 @@ require('dotenv').config();
 const axios = require('axios');
 const {API_KEY} = process.env;
 const { Router } = require('express');
+const {Videogame} = require('../db.js');
 const videogame = Router();
 
 videogame.get("/:idVideogame", async (req, res) => {
@@ -28,6 +29,32 @@ videogame.get("/:idVideogame", async (req, res) => {
 				res.status(404).json({msg: "Game Not Found"});
 			}
 		}
+	} catch(error){
+		next(error);
+	}
+});
+
+videogame.post("/", async (req, res) => {
+	try{
+		const {name, description, releaseDate, rating, platforms} = req.body;
+		let game = {
+			name: name,
+			description: description,
+			releaseDate: releaseDate,
+			rating: rating,
+			platforms: platforms
+		};
+		const [game, created] = await Videogame.findOrCreate({
+		  	where: { 
+		  		name: name,
+		  		description: description, 
+		  		releaseDate: releaseDate, 
+		  		rating: rating, 
+		  		platforms: platforms
+			}
+		});
+
+		res.status(200).json({game, created});
 	} catch(error){
 		next(error);
 	}
