@@ -7,9 +7,9 @@ const genres = Router();
 genres.get("/", async (req, res) => {
 	try{
 		const genres = await Category.findAll();
-		res.status(200).json({genres});
+		res.status(200).json({count:genres.length ,genres});
 	} catch(error){
-		next(error);
+		res.status(500).json({error});
 	}
 });
 

@@ -30,33 +30,21 @@ videogame.get("/:idVideogame", async (req, res) => {
 			}
 		}
 	} catch(error){
-		next(error);
+		res.status(500).json({error})
 	}
 });
 
 videogame.post("/", async (req, res) => {
 	try{
-		const {name, description, releaseDate, rating, platforms} = req.body;
-		let game = {
-			name: name,
-			description: description,
-			releaseDate: releaseDate,
-			rating: rating,
-			platforms: platforms
-		};
+		const {name, description, releaseDate, rating, platforms} = req.body.form;
 		const [game, created] = await Videogame.findOrCreate({
-		  	where: { 
-		  		name: name,
-		  		description: description, 
-		  		releaseDate: releaseDate, 
-		  		rating: rating, 
-		  		platforms: platforms
-			}
+		    where: {name},
+		    defaults: {name, description, releaseDate, rating, platforms}
 		});
 
-		res.status(200).json({game, created});
+		res.status(200).json({created, game});
 	} catch(error){
-		next(error);
+		res.status(500).json({error})
 	}
 });
 

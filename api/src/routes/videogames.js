@@ -20,7 +20,6 @@ videogames.get("/", async (req, res) => {
 					}
 				});
 				games.splice(15);
-				if(games.length)
 				res.status(200).json({count: games.length, games});
 			}
 			// Si no hay resultados
@@ -38,10 +37,10 @@ videogames.get("/", async (req, res) => {
 					genres: game.genres
 				}
 			});
-			res.status(200).json(games);
+			res.status(200).json({count: games.length, games});
 		}
 	} catch(error){
-		next(error);
+		res.status(500).json({error});
 	}
 });
 
