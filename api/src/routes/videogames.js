@@ -6,7 +6,7 @@ const {Videogame} = require('../db.js');
 const { Op } = require("sequelize");
 const videogames = Router();
 
-videogames.get("/", async (req, res) => {
+videogames.get("/", async (req, res, next) => {
 	try{
 		const {name} = req.query;
 		// Busqueda de un juego
@@ -38,7 +38,7 @@ videogames.get("/", async (req, res) => {
 					}
 				});
 				if(games.length > 15) games.splice(15);
-				
+
 				res.status(404).json({msg: "Game Not Found"});
 			}
 		}
@@ -55,7 +55,7 @@ videogames.get("/", async (req, res) => {
 			res.status(200).json({count: games.length, games});
 		}
 	} catch(error){
-		res.status(500).json({error});
+		next(error);
 	}
 });
 

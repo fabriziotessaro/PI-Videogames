@@ -5,7 +5,7 @@ const { Router } = require('express');
 const {Videogame} = require('../db.js');
 const videogame = Router();
 
-videogame.get("/:idVideogame", async (req, res) => {
+videogame.get("/:idVideogame", async (req, res, next) => {
 	try{
 		const {idVideogame} = req.params;
 		// Busqueda de un juego
@@ -30,11 +30,11 @@ videogame.get("/:idVideogame", async (req, res) => {
 			}
 		}
 	} catch(error){
-		res.status(500).json({error})
+		next(error);
 	}
 });
 
-videogame.post("/", async (req, res) => {
+videogame.post("/", async (req, res, next) => {
 	try{
 		const {name, description, releaseDate, rating, platforms} = req.body.form;
 		const [game, created] = await Videogame.findOrCreate({
@@ -44,7 +44,7 @@ videogame.post("/", async (req, res) => {
 
 		res.status(200).json({created, game});
 	} catch(error){
-		res.status(500).json({error})
+		next(error);
 	}
 });
 
