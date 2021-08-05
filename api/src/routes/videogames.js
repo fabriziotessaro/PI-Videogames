@@ -2,6 +2,8 @@ require('dotenv').config();
 const axios = require('axios');
 const {API_KEY} = process.env;
 const { Router } = require('express');
+const {Videogame} = require('../db.js');
+const { Op } = require("sequelize");
 const videogames = Router();
 
 videogames.get("/", async (req, res) => {
@@ -19,11 +21,24 @@ videogames.get("/", async (req, res) => {
 						genres: game.genres.map(genre => genre.name)
 					}
 				});
-				games.splice(15);
+				if(games.length > 15) games.splice(15);
 				res.status(200).json({count: games.length, games});
 			}
 			// Si no hay resultados
 			else{
+				const data = await Videogame.findAll({
+					where:{
+						name:{ [Op.like]: `%${name}%`, }
+					}
+				});
+				let games = data.map(game => {
+					return{
+						name: game.name,
+						genres: game.genres.map(genre => genre.name)
+					}
+				});
+				if(games.length > 15) games.splice(15);
+				
 				res.status(404).json({msg: "Game Not Found"});
 			}
 		}
