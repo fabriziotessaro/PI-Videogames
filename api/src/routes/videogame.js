@@ -2,7 +2,7 @@ require('dotenv').config();
 const axios = require('axios');
 const {API_KEY} = process.env;
 const { Router } = require('express');
-const {Videogame} = require('../db.js');
+const {Videogame, Category} = require('../db.js');
 const videogame = Router();
 
 videogame.get("/:idVideogame", async (req, res, next) => {
@@ -10,24 +10,32 @@ videogame.get("/:idVideogame", async (req, res, next) => {
 		const {idVideogame} = req.params;
 		// Busqueda de un juego
 		if(idVideogame){
-			const data = await axios.get(`https://api.rawg.io/api/games/${idVideogame}?key=${API_KEY}`);
-			// Si se encuentra el juego
-			if(!data.data.detail){
-				let game = {
-					name: data.data.name,
-					background_image: data.data.background_image,
-					genres: data.data.genres.map(genre => genre.name),
-					description: data.data.description,
-					released: data.data.released,
-					rating: data.data.rating,
-					platforms: data.data.platforms.map(plat => plat.platform.name)
-				};
-				res.status(200).json(game);
+			const game = await Videogame.findAll({
+			    where: {id: idVideogame},
+			    include: Category
+			});
+
+			if(!game){
+				const data = await axios.get(`https://api.rawg.io/api/games/${idVideogame}?key=${API_KEY}`);
+				// Si se encuentra el juego
+				if(!data.data.detail){
+					let game = {
+						name: data.data.name,
+						background_image: data.data.background_image,
+						categories: data.data.genres.map(genre => genre.name),
+						description: data.data.description,
+						released: data.data.released,
+						rating: data.data.rating,
+						platforms: data.data.platforms.map(plat => plat.platform.name)
+					};
+				}
 			}
+			if(game) res.status(200).json(game);
+
 			// Si no hay resultados
-			else{
-				res.status(404).json({msg: "Game Not Found"});
-			}
+		}
+		else{
+			res.status(404).json({msg: "Game Not Found"});
 		}
 	} catch(error){
 		next(error);
@@ -36,11 +44,13 @@ videogame.get("/:idVideogame", async (req, res, next) => {
 
 videogame.post("/", async (req, res, next) => {
 	try{
-		const {name, description, releaseDate, rating, platforms} = req.body.form;
+		const {name, description, releaseDate, rating, platforms, genres} = req.body.form;
 		const [game, created] = await Videogame.findOrCreate({
 		    where: {name},
 		    defaults: {name, description, releaseDate, rating, platforms}
 		});
+
+		genres.forEach(async genre => {await game.setCategories(genre)});
 
 		res.status(200).json({created, game});
 	} catch(error){
