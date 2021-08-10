@@ -3,7 +3,7 @@ import {
 	GET_VIDEOGAME_DETAIL,
 	getVideogames,
 	getVideogameDetail
-} from '../Actions';
+} from '../Actions/Actions.js';
 
 const initialState = {
 	videogamesLoaded: [],
@@ -13,10 +13,10 @@ const initialState = {
 export default function rootReducer(state = initialState, action){
 	switch(action.type){
 		case GET_VIDEOGAMES:
-		return[
+		return{
 			...state,
-			videogamesLoaded: action.payload
-		];
+			videogamesLoaded: action.payload.games
+		};
 		case GET_VIDEOGAME_DETAIL:
 		return{
 			...state,
