@@ -22,7 +22,7 @@ videogame.get("/:idVideogame", async (req, res, next) => {
 					rating: data.data.rating,
 					platforms: data.data.platforms.map(plat => plat.platform.name)
 				};
-				res.status(200).json({game});
+				res.status(200).json(game);
 			}
 			// Si no hay resultados
 			else{
