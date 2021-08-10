@@ -5,6 +5,11 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('videogame', {
+    id:{
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -25,9 +30,7 @@ module.exports = (sequelize) => {
     },
     isMyGame: { // atributo para diferenciar entre un juego de la API rawg y uno de la BBDD
       type: DataTypes.BOOLEAN,
-      set(value){
-        this.setDataValue('isMyGame', true);
-      }
+      defaultValue: true
     }
   });
 };
