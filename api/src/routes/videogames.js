@@ -16,6 +16,7 @@ videogames.get("/", async (req, res, next) => {
 			if(data.data.count > 0){
 				let games = data.data.results.map(game => {
 					return{
+						id: game.id,
 						name: game.name,
 						background_image: game.background_image,
 						genres: game.genres.map(genre => genre.name)
