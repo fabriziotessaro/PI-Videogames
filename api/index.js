@@ -25,8 +25,8 @@ const { conn, Videogame, Category } = require('./src/db.js');
 
 // Syncing all the models at once.
 conn.sync({force:true}).then(() => {
-  server.listen(3000, async () => {
-    console.log('%s listening at 3000'); // eslint-disable-line no-console
+  server.listen(3001, async () => {
+    console.log('%s listening at 3001'); // eslint-disable-line no-console
   
     const data = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`);
     const genres = data.data.results.map(genre => {return{id: genre.id, name: genre.name}});

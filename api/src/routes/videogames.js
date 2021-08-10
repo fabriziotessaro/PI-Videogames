@@ -48,6 +48,7 @@ videogames.get("/", async (req, res, next) => {
 			const data = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`);
 			let games = data.data.results.map(game => {
 				return{
+					id: game.id,
 					name: game.name,
 					background_image: game.background_image,
 					genres: game.genres
