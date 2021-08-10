@@ -1,17 +1,19 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 
 // components
+import Videogames from './../Videogames/Videogames.js';
 
-import Videogames from './../Videogames';
 
-function App() {
+export default function Home() {
+  
+
   return (
     <div className="Home">
+      <Videogames />
       
     </div>
   );
 }
 
-export default App;
