@@ -19,7 +19,9 @@ videogames.get("/", async (req, res, next) => {
 						id: game.id,
 						name: game.name,
 						background_image: game.background_image,
-						genres: game.genres.map(genre => genre.name)
+						categories: game.genres,
+						rating: game.rating,
+						isMyGame: false
 					}
 				});
 				if(games.length > 15) games.splice(15);
@@ -35,7 +37,9 @@ videogames.get("/", async (req, res, next) => {
 				let games = data.map(game => {
 					return{
 						name: game.name,
-						genres: game.genres.map(genre => genre.name)
+						categories: game.genres,
+						rating: game.rating,
+						isMyGame: game.isMyGame
 					}
 				});
 				if(games.length > 15) games.splice(15);
@@ -51,7 +55,9 @@ videogames.get("/", async (req, res, next) => {
 					id: game.id,
 					name: game.name,
 					background_image: game.background_image,
-					genres: game.genres
+					rating: game.rating,
+					categories: game.genres,
+					isMyGame: false
 				}
 			});
 			res.status(200).json({count: games.length, games});

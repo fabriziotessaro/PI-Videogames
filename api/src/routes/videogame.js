@@ -10,27 +10,28 @@ videogame.get("/:idVideogame", async (req, res, next) => {
 		const {idVideogame} = req.params;
 		// Busqueda de un juego
 		if(idVideogame){
-			const game = await Videogame.findAll({
-			    where: {id: idVideogame},
-			    include: Category
-			});
-
-			if(!game){
-				const data = await axios.get(`https://api.rawg.io/api/games/${idVideogame}?key=${API_KEY}`);
-				// Si se encuentra el juego
-				if(!data.data.detail){
-					let game = {
-						name: data.data.name,
-						background_image: data.data.background_image,
-						categories: data.data.genres.map(genre => genre.name),
-						description: data.data.description,
-						released: data.data.released,
-						rating: data.data.rating,
-						platforms: data.data.platforms.map(plat => plat.platform.name)
-					};
-				}
+			var game = null;
+			const data = await axios.get(`https://api.rawg.io/api/games/${idVideogame}?key=${API_KEY}`);
+			// Si se encuentra el juego
+			if(!data.data.detail){
+				game = {
+					name: data.data.name,
+					background_image: data.data.background_image,
+					categories: data.data.genres.map(genre => genre.name),
+					description: data.data.description,
+					released: data.data.released,
+					rating: data.data.rating,
+					platforms: data.data.platforms.map(plat => plat.platform.name)
+				};
 			}
-			if(game) res.status(200).json(game);
+			if(game === null){
+				game = await Videogame.findOne({
+				    where: {id: idVideogame},
+				    include: Category
+				});
+			}
+
+			if(game && game !== null) res.status(200).json(game);
 
 			// Si no hay resultados
 		}
