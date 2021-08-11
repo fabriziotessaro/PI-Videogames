@@ -20,7 +20,7 @@ export default function VideogameDetail(props) {
     <div className="VideogameDetail">
       <h1>{videogame.name}</h1>
       <img src={videogame.background_image} heigth="350" width="600" />
-      <p>{videogame.genres}</p>
+      <p>{videogame.categories}</p>
       {videogame.description}
       <p>{videogame.released}</p>
       <p>{videogame.rating}</p>
