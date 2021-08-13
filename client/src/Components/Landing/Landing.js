@@ -1,11 +1,13 @@
-import './App.css';
+import React from "react";
+import { Link } from 'react-router-dom';
 
-function App() {
+// components
+
+
+export default function Landing() {
   return (
-    <div className="App">
-      <h1>Henry Videogames</h1>
+    <div className="Landing">
+      <Link to="/home">Let's fucking GO!</Link>
     </div>
   );
 }
-
-export default App;

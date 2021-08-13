@@ -1,0 +1,112 @@
+/*
+negro = #000000, #050505
+azul = #062F4F
+violeta = #813722
+rojo = #B82601, #cc1f1f, #e60909
+blancos = #dedede
+*/
+html{
+	font-size: 10px;
+}
+body{
+	background: url("https://img.freepik.com/free-vector/pixel-rain-wallpaper-abstract-design_23-2148372889.jpg?size=626&ext=jpg");
+}
+
+/* ------ NAVBAR ------- */
+.Navbar{
+	display: flex;
+	justify-content: space-between;
+
+	width: 80%;
+	background-color: #050505;
+	padding: 20px 0;
+
+	border-radius: 0 0 10px 10px;
+	box-shadow: 10px 10px 0px 1px #1a1919;
+}
+
+.Options{
+	display: block;
+	margin: 0 40px;
+}
+
+.Options a{
+	color: #cc1f1f;
+	font-size: 2rem;
+	font-weight: bold;
+	text-decoration: none;
+
+	padding: 10px 20px;
+	margin: 0 10px;
+	border-radius: 5px;
+	transition: .8s all ease;
+}
+.Options a:hover{
+	cursor: pointer;
+	background-color: #e60909;
+	color: #121212;
+}
+
+.Search{
+	margin: 0 80px;
+}
+
+.Search input{
+	margin: 0 20px;
+	border-radius: 5px;
+	padding: 5px;
+	color: #bdbdbd;
+	border: 3px solid #262626;
+	background-color: #121111;
+	outline: none;
+}
+
+.Search button{
+	color: #cc1f1f;
+	font-size: 1.5rem;
+	font-weight: bold;
+
+	padding: 8px 15px;
+	background-color: #262626;
+	border-radius: 10px;
+	border: none;
+
+	transition: .8s all ease;
+}
+
+.Search button:hover{
+	cursor: pointer;
+	background-color: #e60909;
+	color: #121212;
+}
+
+/* ------ HOME ------- */
+
+.Filters{
+	display: flex;
+	justify-content: space-between;
+
+	width: 100%;
+	background-color: grey;
+	padding: 20px 0;
+	margin: 50px 0;
+}
+
+.VideogamesList{
+	display: grid;
+	grid-template-columns: repeat(3, auto);
+	background-color: rgba(26, 25, 25,0.8);
+}
+
+.OneVideogame{
+	display: flex;
+	justify-content: center;
+	margin: auto;
+}
+
+.OneVideogame img{
+	
+
+	height: 250px;
+	width: 350px;
+}

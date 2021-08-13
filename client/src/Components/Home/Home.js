@@ -1,5 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { Link } from 'react-router-dom';
 
 // components
@@ -12,7 +11,6 @@ export default function Home() {
   return (
     <div className="Home">
       <Videogames />
-      
     </div>
   );
 }

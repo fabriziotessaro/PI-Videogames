@@ -1,6 +1,5 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
 
 // components
 import OneVideogame from './../OneVideogame/OneVideogame.js';
@@ -11,7 +10,6 @@ import {getVideogames, getGenres, getFilteredVideogames} from './../../Actions/A
 export default function Videogames() {
   // estados
   const [videogamesList, setVideogamesList] = useState([]);
-  const [search, setSearch] = useState("");
   const [filterList, setFilterList] = useState({
     categories: "see-all",
     isMyGame: "see-all",
@@ -39,7 +37,6 @@ export default function Videogames() {
     var actualPage = videogames.slice((pageProperties.pageNum*9)-9, 9*pageProperties.pageNum);
     var pageCant = Math.ceil(videogames.length / 9);
     var pages = [];
-    console.log(actualPage)
     for(let page = 1; page <= pageCant; page++){
       pages.push(page);
     }
@@ -67,16 +64,6 @@ export default function Videogames() {
     });
   }
 
-  //funcion para actualizar el valor de busqueda
-  function searchHandle(event){
-    setSearch(event.target.value);
-  }
-  // funcion para iniciar la busqueda
-  function submitHandle(event){
-    event.preventDefault()
-    dispatch(getVideogames(search));
-  }
-
   //funcion para cambiar de pagina de la lista de videojuegos
   function changePage(page){
     setPageProperties({
@@ -86,12 +73,6 @@ export default function Videogames() {
   }
   return (
     <div className="Videogames">
-    <div className="Search">
-      <form onSubmit={(e) => submitHandle(e)}>
-        <input onChange={(e) => searchHandle(e)} value={search} />
-        <button>Search</button>
-      </form>
-    </div>
       <div className="Filters">
         <div className="OneFilter">
           <label>Genero</label>
