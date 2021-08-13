@@ -3,8 +3,10 @@ import axios from 'axios';
 // reducer-actions types:
 export const GET_VIDEOGAMES = "GET_VIDEOGAMES";
 export const GET_VIDEOGAME_DETAIL = "GET_VIDEOGAME_DETAIL";
-export const GET_GENRES = "GET_GENRES"
+export const GET_GENRES = "GET_GENRES";
+export const GET_PLATFORMS = "GET_PLATFORMS";
 export const GET_FILTERED_VIDEOGAMES = "GET_FILTERED_VIDEOGAMES";
+export const POST_VIDEOGAME = "POST_VIDEOGAME";
 
 export function getVideogames(name){
 	return async function(dispatch){
@@ -27,10 +29,24 @@ export function getVideogameDetail(id){
 	}
 }
 
+export function postVideogame(videogame){
+	return async function(dispatch){
+		const data = await axios.post(`http://localhost:3001/videogame`, {form:videogame});
+		return dispatch({type: POST_VIDEOGAME, payload: data.data});
+	}
+}
+
 export function getGenres(){
 	return async function(dispatch){
 		const data = await axios.get(`http://localhost:3001/genres`);
 		return dispatch({type: GET_GENRES, payload: data.data});
+	}
+}
+
+export function getPlatforms(){
+	return async function(dispatch){
+		const data = await axios.get(`http://localhost:3001/platforms`);
+		return dispatch({type: GET_PLATFORMS, payload: data.data});
 	}
 }
 

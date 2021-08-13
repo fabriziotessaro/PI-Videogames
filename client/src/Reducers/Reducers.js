@@ -2,14 +2,18 @@ import {
 	GET_VIDEOGAMES,
 	GET_VIDEOGAME_DETAIL,
 	GET_GENRES,
-	GET_FILTERED_VIDEOGAMES
+	GET_FILTERED_VIDEOGAMES,
+	POST_VIDEOGAME,
+	GET_PLATFORMS,
 } from '../Actions/Actions.js';
 
 const initialState = {
 	videogamesLoaded: [], // juegos cargados
 	videogamesList: [], // lista a la que se le aplicaran los filtros
 	videogameDetail: {},
-	genres:[]
+	genres:[],
+	platforms:[],
+	postAnswer:{} // respuesta del back al postear un nuevo juego
 }
 
 export default function rootReducer(state = initialState, action){
@@ -21,15 +25,24 @@ export default function rootReducer(state = initialState, action){
 			videogamesList: action.payload.games
 		};
 		case GET_VIDEOGAME_DETAIL:
-		console.log(action.payload)
 		return{
 			...state,
 			videogameDetail: action.payload
+		};
+		case POST_VIDEOGAME:
+		return{
+			...state,
+			postAnswer: action.payload
 		};
 		case GET_GENRES:
 		return{
 			...state,
 			genres: action.payload.genres
+		};
+		case GET_PLATFORMS:
+		return{
+			...state,
+			platforms: action.payload.platforms
 		};
 		case GET_FILTERED_VIDEOGAMES:
 		if(action.payload){

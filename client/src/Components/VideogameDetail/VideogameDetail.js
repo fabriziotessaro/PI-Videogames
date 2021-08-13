@@ -16,12 +16,16 @@ export default function VideogameDetail(props) {
     dispatch(getVideogameDetail(idVideogame));
   },[])
 
+  useEffect(() => {
+    document.querySelector("#description").innerHTML = videogame.description;
+  },[videogame])
+
   return (
     <div className="VideogameDetail">
       <h1>{videogame.name}</h1>
       <img src={videogame.background_image} heigth="350" width="600" />
       <p>{videogame.categories}</p>
-      {videogame.description}
+      <div id="description"></div>
       <p>{videogame.released}</p>
       <p>{videogame.rating}</p>
       <p>{videogame.platforms}</p>
