@@ -24,10 +24,6 @@ module.exports = (sequelize) => {
     rating: {
       type: DataTypes.DECIMAL,
     },
-    platforms: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
     isMyGame: { // atributo para diferenciar entre un juego de la API rawg y uno de la BBDD
       type: DataTypes.BOOLEAN,
       defaultValue: true

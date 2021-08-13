@@ -2,7 +2,7 @@ require('dotenv').config();
 const axios = require('axios');
 const {API_KEY} = process.env;
 const { Router } = require('express');
-const {Videogame, Category} = require('../db.js');
+const {Videogame, Category, Platform} = require('../db.js');
 const videogame = Router();
 
 videogame.get("/:idVideogame", async (req, res, next) => {
@@ -27,7 +27,7 @@ videogame.get("/:idVideogame", async (req, res, next) => {
 			if(game === null){
 				game = await Videogame.findOne({
 				    where: {id: idVideogame},
-				    include: Category
+				    include: [Category, Platform]
 				});
 			}
 
@@ -52,6 +52,7 @@ videogame.post("/", async (req, res, next) => {
 		});
 
 		genres.forEach(async genre => {await game.setCategories(genre)});
+		platforms.forEach(async plat => {await game.setPlatforms(plat)});
 
 		res.status(200).json({created, game});
 	} catch(error){
