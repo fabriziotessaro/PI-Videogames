@@ -14,22 +14,12 @@ import Landing from './Components/Landing/Landing.js';
 export default function App() {
   return (
     <div className="App">
+      <Navbar/>
       <Switch>
         <Route exact path="/" component={Landing} />
-        <Route path="/">
-          <Route exact path="/home">
-            <Navbar/>
-            <Home/>
-          </Route>
-          <Route exact path="/videogame/:idVideogame">
-            <Navbar/>
-            <VideogameDetail/>
-          </Route>
-          <Route exact path="/addvideogame">
-            <Navbar/>
-            <CreateVideogame/>
-          </Route>
-        </Route>
+        <Route exact path="/home" component={Home}/>
+        <Route exact path="/videogame/:idVideogame" component={VideogameDetail}/>
+        <Route exact path="/addvideogame" component={CreateVideogame}/>
       </Switch>
     </div>
   );

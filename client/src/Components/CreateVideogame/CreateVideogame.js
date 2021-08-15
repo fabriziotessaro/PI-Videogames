@@ -107,57 +107,65 @@ export default function CreateVideogame(){
   }
   return (
     <div className="CreateVideogame">
-        <h1>Agrega un Videojuego</h1>
         <div className="CreationForm">
+          <h1>Agrega un Videojuego</h1>
           <form onSubmit={(e) => submitHandle(e)}>
-            <div className="FormField">
-              <h3>Titulo</h3>
-              <input name="name" value={formState.name} onChange={(e) => changeHandle(e)}/>
-              {errors.name && <h4>{errors.name}</h4>}
+            <div className="Column1">
+              <div className="FormField">
+                <h3>Titulo</h3>
+                <input className={errors.name && "Error"} name="name" value={formState.name} onChange={(e) => changeHandle(e)}/>
+                {errors.name && <h4>{errors.name}</h4>}
+              </div>
+              <div className="FormField">
+                <h3>Fecha de Lanzamiento</h3>
+                <input className={errors.releaseDate && "Error"} type="date" name="releaseDate" value={formState.releaseDate} onChange={(e) => changeHandle(e)}/>
+                {errors.releaseDate && <h4>{errors.releaseDate}</h4>}
+              </div>
+              <div className="FormField">
+                <h3>Rating</h3>
+                <input className={errors.rating && "Error"} name="rating" value={formState.rating} onChange={(e) => changeHandle(e)}/>
+                {errors.rating && <h4>{errors.rating}</h4>}
+              </div>
             </div>
-            <div className="FormField">
-              <h3>Fecha de Lanzamiento</h3>
-              <input type="date" name="releaseDate" value={formState.releaseDate} onChange={(e) => changeHandle(e)}/>
-              {errors.releaseDate && <h4>{errors.releaseDate}</h4>}
+            <div className="Column2">  
+              <div className="FormField">
+                <h3>Generos</h3>
+                <select className={errors.genres && "Error"} name="genres" onChange={(e) => changeHandle(e)}>
+                    <option value=""></option>
+                  {categories && categories.map(genre =>
+                    <option key={genre.id} value={genre.id}>{genre.name}</option>
+                  )}
+                </select>
+                {errors.genres && <h4>{errors.genres}</h4>}
+              </div>
+              <div className="FormField">
+                <h3>Plataformas</h3>
+                <select className={errors.platforms && "Error"} name="platforms" onChange={(e) => changeHandle(e)}>
+                    <option value=""></option>
+                  {platforms && platforms.map(plat =>
+                    <option key={plat.id} value={plat.id}>{plat.name}</option>
+                  )}
+                </select>
+                {errors.platforms && <h4>{errors.platforms}</h4>}
+              </div>
             </div>
-            <div className="FormField">
-              <h3>Rating</h3>
-              <input name="rating" value={formState.rating} onChange={(e) => changeHandle(e)}/>
-              {errors.rating && <h4>{errors.rating}</h4>}
-            </div>
-            <div className="FormField">
-              <h3>Generos</h3>
-              <select name="genres" onChange={(e) => changeHandle(e)}>
-                  <option value=""></option>
-                {categories && categories.map(genre =>
-                  <option key={genre.id} value={genre.id}>{genre.name}</option>
-                )}
-              </select>
-              {errors.genres && <h4>{errors.genres}</h4>}
-            </div>
-            <div className="FormField">
-              <h3>Plataformas</h3>
-              <select name="platforms" onChange={(e) => changeHandle(e)}>
-                  <option value=""></option>
-                {platforms && platforms.map(plat =>
-                  <option key={plat.id} value={plat.id}>{plat.name}</option>
-                )}
-              </select>
-              {errors.platforms && <h4>{errors.platforms}</h4>}
-            </div>
-            <div className="FormField">
-              <h3>Descripcion</h3>
-              <textarea name="description" onChange={(e) => changeHandle(e)}/>
-              {errors.description && <h4>{errors.description}</h4>}
+            <div className="DescriptionField">
+              <div className="FormField">
+                <h3>Descripcion</h3>
+                <textarea className={errors.description && "Error"} name="description" onChange={(e) => changeHandle(e)}/>
+                {errors.description && <h4>{errors.description}</h4>}
+              </div>
             </div>
             <div className="FormFooter">
               <button>Agregar</button>
             </div>
           </form>
-          <div className="ViewSelected">
+        </div>
+        <div className="ViewSelected">
+          <div className="SelectList Genres">
             <h4>Generos seleccionados</h4>
-            <div className="Genres">
-              {formState.genres.length === 0 ? <h4>No hay generos</h4> : 
+            <div className="Collection">
+              {formState.genres.length === 0 ? <h4 className="Empty">No hay generos</h4> : 
                 formState.genres.map(genre => { 
                   let genreName = categories.find(cat => cat.id === genre).name
                   return(
@@ -167,9 +175,11 @@ export default function CreateVideogame(){
                 })
               }
             </div>
+          </div>
+          <div className="SelectList Platforms">
             <h4>Plataformas seleccionadas</h4>
-            <div className="Platforms">
-              {formState.platforms.length === 0 ? <h4>No hay plataformas</h4> :
+            <div className="Collection">
+              {formState.platforms.length === 0 ? <h4 className="Empty">No hay plataformas</h4> :
                 formState.platforms.map(plat => {
                   let platName = platforms.find(pat => pat.id === plat).name
                   return(

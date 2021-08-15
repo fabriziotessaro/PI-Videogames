@@ -7,7 +7,9 @@ import { Link } from 'react-router-dom';
 export default function Landing() {
   return (
     <div className="Landing">
-      <Link to="/home">Let's fucking GO!</Link>
+      <div className="Access">
+        <Link to="/home">Let's fucking GO!</Link>
+      </div>
     </div>
   );
 }
