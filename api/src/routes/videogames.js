@@ -20,6 +20,10 @@ videogames.get("/", async (req, res, next) => {
 						name: game.name,
 						background_image: game.background_image,
 						categories: game.genres,
+						platforms: game.platforms.map(plat => {return{
+							id: plat.platform.id,
+							name: plat.platform.name
+						}}),
 						rating: game.rating,
 						isMyGame: false
 					}
@@ -57,6 +61,10 @@ videogames.get("/", async (req, res, next) => {
 					background_image: game.background_image,
 					rating: game.rating,
 					categories: game.genres,
+					platforms: game.platforms.map(plat => {return{
+						id: plat.platform.id,
+						name: plat.platform.name
+					}}),
 					isMyGame: false
 				}
 			});

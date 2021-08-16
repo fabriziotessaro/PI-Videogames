@@ -48,12 +48,13 @@ videogame.post("/", async (req, res, next) => {
 		const {name, description, releaseDate, rating, platforms, genres} = req.body.form;
 		const [game, created] = await Videogame.findOrCreate({
 		    where: {name},
-		    defaults: {name, description, releaseDate, rating, platforms}
+		    defaults: {name, description, releaseDate, rating}
 		});
-
-		genres.forEach(async genre => {await game.setCategories(genre)});
-		platforms.forEach(async plat => {await game.setPlatforms(plat)});
-
+		if(created){
+			await game.setCategories(genres);
+			await game.setPlatforms(platforms);
+		}
+		
 		res.status(200).json({created, game});
 	} catch(error){
 		next(error);
