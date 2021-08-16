@@ -56,8 +56,8 @@ videogames.get("/", async (req, res, next) => {
 		}
 		// Traer todos los juegos
 		else{
-			const data = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`);
-			let games = data.data.results.map(game => {
+			const dataAPI = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`);
+			const gamesRAWG = dataAPI.data.results.map(game => {
 				return{
 					id: game.id,
 					name: game.name,
@@ -71,6 +71,13 @@ videogames.get("/", async (req, res, next) => {
 					isMyGame: false
 				}
 			});
+
+			const gamesDB = await Videogame.findAll({
+				include:[Category, Platform]
+			});	
+			
+			const games = [...gamesDB,...gamesRAWG];
+			
 			res.status(200).json({count: games.length, games});
 		}
 	} catch(error){
