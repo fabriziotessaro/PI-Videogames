@@ -1,0 +1,57 @@
+/* ------ VIDEOGAMES ------- */
+
+.Videogames{
+	height: 100%;
+	background-color: rgba(26, 25, 25,0.3);
+}
+
+.VideogamesList{
+	display: grid;
+	grid-template-columns: repeat(3, auto);
+	margin-top: 15px;
+	padding: 20px 40px;
+}
+
+/* ------ PAGES BUTTONS ------- */
+
+.PageButtons{
+	background-color: rgba(18, 17, 17, 0.9);
+	border-radius: 5px;
+
+	position: fixed;
+	bottom: 0px;
+	z-index: 100000;
+	padding: 5px;
+	margin: 0 38.5%;
+
+	display: flex;
+	justify-content: space-between;
+}
+
+.PageNumbers,
+.PageArrows{
+	display: flex;
+	justify-content: flex-start;
+	margin: 0 5px;
+}
+
+.PageButtons h4{
+	background-color: #0a0909;
+	border: 3px solid #19191c;
+	border-radius: 5px;
+	padding: 5px 10px;
+	margin: 0 2px;
+
+	box-shadow: 0 0 5px 2px #0a0909;
+	transition: .5s all ease;
+
+	font-size: 1.2rem;
+	font-weight: bold;
+	color: #c3c4c7;
+}
+
+.PageButtons h4:hover{
+	cursor: pointer;
+	background-color: #c3c4c7;
+	color: #121212;
+}

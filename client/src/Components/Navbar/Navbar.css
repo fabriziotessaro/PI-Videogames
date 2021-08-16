@@ -1,0 +1,77 @@
+
+/* ------ NAVBAR ------- */
+.Navbar{
+	display: flex;
+	justify-content: space-between;
+
+	width: 100%;
+	background-color: rgba(18, 17, 17, 0.9);
+	padding: 30px 0;
+	z-index: 100000;
+
+	box-shadow: 0 10px 3px 5px rgba(8, 7, 7, 0.7);
+}
+
+.Options{
+	display: block;
+	margin: 0 40px;
+}
+
+.Options a{
+	color: #c3c4c7;
+	font-size: 2rem;
+	font-weight: bold;
+	text-decoration: none;
+
+	padding: 10px 20px;
+	margin: 0 10px;
+	border-radius: 5px;
+	transition: .8s all ease;
+}
+.Options a:hover{
+	cursor: pointer;
+	background-color: #c3c4c7;
+	color: #121212;
+}
+
+.Search{
+	margin: 0 80px;
+}
+
+.Search input{
+	margin: 0 20px;
+	border-radius: 5px;
+	padding: 5px;
+	color: #bdbdbd;
+	width: 250px;
+	border: 3px solid #171717;
+	background-color: rgba(43, 43, 43,0.9);
+	outline: none;
+	transition: .5s all ease;
+}
+
+.Search input:hover{
+	background-color: #c3c4c7;
+	color: #121212;
+	border-color: #171717;
+}
+
+
+.Search button{
+	color: #c3c4c7;
+	font-size: 1.8rem;
+	font-weight: bold;
+
+	padding: 8px 15px;
+	background: transparent;
+	border-radius: 10px;
+	border: none;
+
+	transition: .8s all ease;
+}
+
+.Search button:hover{
+	cursor: pointer;
+	background-color: #c3c4c7;
+	color: #121212;
+}

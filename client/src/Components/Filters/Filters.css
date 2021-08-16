@@ -1,0 +1,49 @@
+/* ------ FILTERS ------- */
+.Filter{
+	position: fixed;
+	bottom: -40px;
+	z-index: 100000;
+	padding: 20px 0;
+	margin: 50px 0;
+}
+
+.Filter select{
+	width: 300px;
+	padding: 10px;
+	margin: 0;
+	background-color: #0a0909;
+	border: 3px solid #19191c;
+	border-radius: 5px;
+	outline: none;
+
+	font-size: 1.8rem;
+	font-weight: bold;
+	color: #c3c4c7;
+
+	box-shadow: 0 0 5px 2px #0a0909;
+	transition: .5s all ease;
+}
+
+.Filter select:hover{
+	cursor: pointer;
+	background-color: #c3c4c7;
+	color: #121212;
+}
+
+.Group2{
+	text-align: right;
+	right: 0;
+}
+
+.OneFilter{
+	margin: 10px 20px;
+	margin-bottom: 0;
+}
+
+.Filter select[name="platforms"]{
+	margin-left: 50px;
+}
+
+.Filter select[name="order"]{
+	margin-right: 50px;
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import './Landing.css';
 
 // components
 
@@ -7,8 +8,11 @@ import { Link } from 'react-router-dom';
 export default function Landing() {
   return (
     <div className="Landing">
+      <div className="Title">
+        <h1>WELCOME TO VIDEOMANIA</h1>
+      </div>
       <div className="Access">
-        <Link to="/home">Let's fucking GO!</Link>
+        <Link to="/home">START!</Link>
       </div>
     </div>
   );

@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import './Videogames.css';
+import { useSelector } from "react-redux";
+import './PageButtons.css';
 
-// components
-import OneVideogame from './../OneVideogame/OneVideogame.js';
-import Filters from './../Filters/Filters.js';
-
-// actions
-import {getVideogames} from './../../Actions/Actions.js';
-
-export default function Videogames() {
+export default function PageButtons() {
   // estados
   const [videogamesList, setVideogamesList] = useState([]);
   const [pageProperties, setPageProperties] = useState({
@@ -18,13 +11,7 @@ export default function Videogames() {
   });
 
   // store stuff
-  const dispatch = useDispatch();
   const videogames = useSelector(state => state.videogamesList);
-
-  // despacha estados del store cuando se monta el componente
-  useEffect(() => {
-    dispatch(getVideogames(false));
-  },[]);
 
   // actualiza el componente cuando se actualiza el estado de `videogamesList` 
   // o los filtros o se cambia de pagina
@@ -87,34 +74,19 @@ export default function Videogames() {
     }
   }
   return (
-    <div className="Videogames">
-      <Filters />
-      <div className="VideogamesList">
-        {videogamesList && videogamesList.map((game, index) => 
-          <OneVideogame
-            key={index}
-            id={game.id}
-            name={game.name}
-            img={game.background_image}
-            genres={game.categories}
-            platforms={game.platforms}
-          />)
-        }
+    <div className="PageButtons">
+      <div className="PageArrows">
+        <h4 onClick={() => changePage('first')}>&#10094;&#10094;</h4>
+        <h4 onClick={() => changePage('prev')}>&#10094;</h4>
       </div>
-      <div className="PageButtons">
-        <div className="PageArrows">
-          <h4 onClick={() => changePage('first')}>&#10094;&#10094;</h4>
-          <h4 onClick={() => changePage('prev')}>&#10094;</h4>
-        </div>
-        <div className="PageNumbers">
-          {pageProperties.pages && pageProperties.pages.map(page => 
-            <h4 key={page} onClick={() => changePage(page)}>{page}</h4>
-          )}
-        </div>
-        <div className="PageArrows">
-          <h4 onClick={() => changePage('next')}>&#10095;</h4>
-          <h4 onClick={() => changePage('last')}>&#10095;&#10095;</h4>
-        </div>
+      <div className="PageNumbers">
+        {pageProperties.pages && pageProperties.pages.map(page => 
+          <h4 key={page} onClick={() => changePage(page)}>{page}</h4>
+        )}
+      </div>
+      <div className="PageArrows">
+        <h4 onClick={() => changePage('next')}>&#10095;</h4>
+        <h4 onClick={() => changePage('last')}>&#10095;&#10095;</h4>
       </div>
     </div>
   );

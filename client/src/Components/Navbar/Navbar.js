@@ -1,9 +1,8 @@
 import React, {useState} from "react";
 import { useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
+import './Navbar.css';
 
-// components
-import OneVideogame from './../OneVideogame/OneVideogame.js';
 
 // actions
 import {getVideogames} from './../../Actions/Actions.js';

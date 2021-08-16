@@ -1,0 +1,246 @@
+
+/* ------ ADD VIDEOGAME ------- */
+
+.CreateVideogame{
+	background-color: rgba(26, 25, 25,0.4);
+	display: grid;
+	grid-template-columns: repeat(2, 50%);
+	align-items: start;
+
+	margin-top: 15px;
+	padding: 40px 20px;
+}
+
+.CreationForm{
+	background-color: rgba(18, 17, 17, 0.9);
+	padding: 10px;
+	border-radius: 5px;
+	margin: auto;
+}
+
+.CreationForm h1{
+	font-size: 3rem;
+	color: #c3c4c7;
+	text-align: center;
+	border-bottom: 2px solid #c3c4c7;
+	padding-bottom: 10px;
+}
+
+.CreationForm h3{
+	font-size: 1.8rem;
+	font-weight: bold;
+	color: #c3c4c7;
+}
+
+.CreationForm h4{ /* mensaje de error */
+	position: absolute;
+	bottom: -15px;
+
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #ad0303;
+}
+
+.CreationForm .Error{ /* resaltar inputs con errores */
+	border-color: #ad0303;
+}
+
+.CreationForm form{
+	display: grid;
+	grid-template-columns: repeat(2, 50%);
+	align-items: start;
+	grid-template-areas:
+	"a b"
+	"c c"
+	"d d";
+}
+
+.CreationForm form .Column1{
+	grid-area: a;
+}
+.CreationForm form .Column2{
+	grid-area: b;
+}
+.CreationForm form .DescriptionField{
+	grid-area: c;
+}
+.CreationForm form .FormFooter{
+	grid-area: d;
+}
+
+.CreationForm .FormField{
+	position: relative;
+	margin: 5px 10px;
+	padding: 5px 15px;
+}
+
+.CreationForm input,
+.CreationForm select,
+.CreationForm textarea{
+	width: 100%;
+	padding: 5px;
+	background-color: #19191c;
+	border: 2px solid #2a2a2e;
+	border-radius: 5px;
+	outline: none;
+
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #c3c4c7;
+
+	transition: .5s all ease;
+}
+
+.CreationForm input:hover,
+.CreationForm textarea:hover,
+.CreationForm select:hover{
+	background-color: #c3c4c7;
+	color: #121212;
+	border-color: #171717;
+
+}
+
+.CreationForm select{
+	width: 80%;
+}
+.CreationForm .SelectField{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+.CreationForm .SelectField button{
+	background-color: #19191c;
+	border-radius: 10px;
+	font-size: 2.5rem;
+	border: 1px solid #2a2a2e;
+	font-weight: bold;
+	color: #c3c4c7;
+
+	transition: .5s all ease;
+}
+
+.CreationForm .SelectField button:hover{
+	cursor: pointer;
+	background-color: #c3c4c7;
+	color: #121212;
+}
+
+
+.CreationForm textarea{
+	resize: none;
+	height: 100px;
+	padding: 10px;
+}
+
+.CreationForm .FormFooter{
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.CreationForm .FormFooter button{
+	font-size: 2.5rem;
+	font-weight: bold;
+	padding: 10px 20px;
+	border-radius: 10px;
+	border: 3px solid #2a2a2e;
+	background-color: #19191c;
+	color: #b8b8b8;
+	transition: .5s all ease;
+}
+
+.CreationForm .FormFooter button:hover{
+	border: 3px solid #2a2a2e;
+	background-color: #c3c4c7;
+	color: #121212;
+	cursor: pointer;
+	box-shadow: 0px 0px 5px 2px rgba(10, 10, 10, 0.4) inset;
+}
+
+.ViewSelected{
+	background-color: rgba(18, 17, 17, 0.9);
+	padding: 10px;
+	border-radius: 5px;
+	height: 300px;
+
+
+	display: grid;
+	grid-template-columns: repeat(2, 50%);
+	align-items: start;
+}
+
+.ViewSelected h4{
+	font-size: 2rem;
+	font-weight: bold;
+	color: #c3c4c7;
+
+	text-align: center;
+	border-bottom: 2px solid #c3c4c7;
+	padding-bottom: 10px;
+}
+
+.ViewSelected .Empty{
+	border-bottom: 5px dotted #c3c4c7;
+}
+
+.ViewSelected h5{
+	font-size: 1.8rem;
+	font-weight: bold;
+	color: #c3c4c7;
+	padding: 15px 15px;
+	margin: 0;
+
+	display: flex;
+	justify-content: space-between;
+	transition: .5s all ease;
+}
+
+.ViewSelected h5:hover{
+	box-shadow: 0 0 10px 2px rgba(20, 20, 20, 0.8) inset;
+	cursor: pointer;
+}
+
+.ViewSelected h5 span{
+	padding: 2px 5px;
+	border: 2px solid #c3c4c7;
+	border-radius: 5px;
+	color: #c3c4c7;
+	transition: .2s all ease;
+}
+
+.ViewSelected h5 span:hover{
+	padding: 2px 5px;
+	border: 2px solid #b00505;
+	color: #141414;
+	background-color: #b00505;
+}
+
+.ViewSelected .SelectList{
+	background-color: #19191c;
+	padding: 0 20px;
+	height: 100%;
+	margin: 0 10px;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.ViewSelected .Collection{
+	overflow-y: scroll;
+	height: 70%;
+}
+
+.Collection::-webkit-scrollbar{
+  width: 10px;
+  border-radius: 5px;
+}
+ 
+.Collection::-webkit-scrollbar-track{
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+.Collection::-webkit-scrollbar-thumb{
+  background-color: #242424;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  height: 15px;
+}

@@ -1,0 +1,91 @@
+
+/* ------ VIDEOGAME DETAIL ------- */
+
+.VideogameDetail{
+	background-color: rgba(26, 25, 25,0.4);
+	display: grid;
+	grid-template-columns: repeat(2, 50%);
+	grid-template-areas:
+	"a b"
+	"c c";
+	align-items: start;
+	margin-top: 15px;
+	padding: 40px 20px;
+}
+
+.Image{
+	grid-area: a;
+
+	background-color: rgba(18, 17, 17, 0.9);
+	padding: 10px;
+	border-radius: 5px;
+	margin: auto;
+}
+
+.DetailInformation{
+	grid-area: b;
+
+	background-color: rgba(18, 17, 17, 0.9);
+	padding: 0px 50px;
+}
+
+.DetailInformation .Video-Genres,
+.DetailInformation .Video-Platforms{
+	background: transparent;
+	padding: 5px 0;
+	margin: 0;
+	text-align: left;
+	border-radius: 0 0 5px 5px;
+	overflow-x: hidden;
+	display: block;
+	position: relative;
+	width: 100%;
+}
+
+.DetailInformation .Video-Genres .Genre,
+.DetailInformation .Video-Platforms .Platform{
+	font-size: 1.4rem;
+}
+
+.DetailInformation .Title{
+	font-size: 2.5rem;
+	color: #c3c4c7;
+}
+
+.DetailInformation h2{
+	font-size: 2.4rem;
+	color: #a8a8a8;
+}
+
+.DetailInformation .Rating{
+	font-size: 2.5rem;
+	font-weight: bold;
+	color: #c3c4c7;
+}
+
+.DetailInformation .ReleaseDate{
+	width: fit-content;
+	font-size: 2rem;
+	font-weight: bold;
+	color: #c3c4c7;
+}
+
+.Description-Conteiner{
+	grid-area: c;
+
+	background-color: rgba(18, 17, 17, 0.9);
+	padding: 30px 40px;
+	margin: 50px 0;
+}
+
+.Description-Conteiner h2{
+	font-size: 2.6rem;
+	font-weight: bold;
+	color: #c3c4c7;
+}
+
+.Description-Conteiner .Description{
+	font-size: 1.8rem;
+	font-weight: bold;
+	color: #a8a8a8;
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import './OneVideogame.css';
 
 export default function OneVideogame({id,name,img,genres,platforms}) {
   return (
