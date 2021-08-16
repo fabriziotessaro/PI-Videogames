@@ -9,15 +9,16 @@ html{
 	font-size: 10px;
 }
 body{
-	background: url("./Images/2488356.jpg");
+	background: url("./Images/5-58559_breath-of-the-wild-2.jpg");
 	background-attachment: fixed;
-	background-size: contain;
+	background-size: cover;
+	background-repeat: no-repeat;
 
 }
 
 body::-webkit-scrollbar {
   width: 15px;
-  background: #060712;
+  background: #0f0f0f;
 }
  
 body::-webkit-scrollbar-track {
@@ -26,11 +27,31 @@ body::-webkit-scrollbar-track {
 }
  
 body::-webkit-scrollbar-thumb {
-  background-color: #111130;
+  background-color: #242424;
   border: none;
   border-radius: 2px;
   outline: none;
   height: 5px;
+}
+
+textarea::-webkit-scrollbar,
+select::-webkit-scrollbar{
+  width: 10px;
+  border-radius: 5px;
+}
+ 
+textarea::-webkit-scrollbar-track,
+select::-webkit-scrollbar-track{
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+textarea::-webkit-scrollbar-thumb,
+select::-webkit-scrollbar-thumb {
+  background-color: #242424;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  height: 15px;
 }
 
 
@@ -39,12 +60,12 @@ body::-webkit-scrollbar-thumb {
 	display: flex;
 	justify-content: space-between;
 
-	width: 80%;
-	background-color: rgba(7, 21, 82, 0.9);
+	width: 100%;
+	background-color: rgba(18, 17, 17, 0.9);
 	padding: 30px 0;
+	z-index: 100000;
 
-	border-radius: 0 0 10px 0;
-	box-shadow: 10px 10px 3px 5px rgba(6, 10, 28, 0.7);
+	box-shadow: 0 10px 3px 5px rgba(8, 7, 7, 0.7);
 }
 
 .Options{
@@ -65,7 +86,7 @@ body::-webkit-scrollbar-thumb {
 }
 .Options a:hover{
 	cursor: pointer;
-	background-color: #44168a;
+	background-color: #c3c4c7;
 	color: #121212;
 }
 
@@ -78,18 +99,19 @@ body::-webkit-scrollbar-thumb {
 	border-radius: 5px;
 	padding: 5px;
 	color: #bdbdbd;
-	border: 3px solid #262626;
-	background-color: #121111;
+	width: 250px;
+	border: 3px solid #171717;
+	background-color: rgba(43, 43, 43,0.9);
 	outline: none;
 }
 
 .Search button{
 	color: #c3c4c7;
-	font-size: 1.5rem;
+	font-size: 1.8rem;
 	font-weight: bold;
 
 	padding: 8px 15px;
-	background-color: #100f2e;
+	background: transparent;
 	border-radius: 10px;
 	border: none;
 
@@ -98,39 +120,82 @@ body::-webkit-scrollbar-thumb {
 
 .Search button:hover{
 	cursor: pointer;
-	background-color: #44168a;
+	background-color: #c3c4c7;
 	color: #121212;
 }
 
 /* ------ HOME ------- */
 
 /* ------ FILTERS ------- */
-.Filters{
-	display: flex;
-	justify-content: space-between;
-
-	width: 100%;
-	background-color: rgba(7, 21, 82, 0.9);
+.Filter{
+	position: fixed;
+	bottom: -40px;
+	z-index: 100000;
 	padding: 20px 0;
 	margin: 50px 0;
 }
 
+.Filter select{
+	width: 300px;
+	padding: 10px;
+	margin: 0;
+	background-color: #0a0909;
+	border: 3px solid #19191c;
+	border-radius: 5px;
+	outline: none;
+
+	font-size: 1.8rem;
+	font-weight: bold;
+	color: #c3c4c7;
+
+	box-shadow: 0 0 5px 2px #0a0909;
+	transition: .5s all ease;
+}
+
+.Filter select:hover{
+	cursor: pointer;
+	background-color: #c3c4c7;
+	color: #121212;
+}
+
+.Group2{
+	text-align: right;
+	right: 0;
+}
+
+.OneFilter{
+	margin: 10px 20px;
+	margin-bottom: 0;
+}
+
+.Filter select[name="platforms"]{
+	margin-left: 50px;
+}
+
+.Filter select[name="order"]{
+	margin-right: 50px;
+}
+
+
 /* ------ VIDEOGAMES ------- */
+
+.Videogames{
+	height: 100%;
+	background-color: rgba(26, 25, 25,0.3);
+}
 
 .VideogamesList{
 	display: grid;
 	grid-template-columns: repeat(3, auto);
-	background-color: rgba(26, 25, 25,0.4);
-	padding-top: 20px;
+	margin-top: 15px;
+	padding: 20px 40px;
 }
 
 .OneVideogame{
 	position: relative;
 	display: flex;
 	justify-content: center;
-	margin: auto;
-	margin-top: 50px;
-	margin-bottom: 20px;
+	margin: 20px auto;
 	z-index: 10000;
 }
 
@@ -139,40 +204,40 @@ body::-webkit-scrollbar-thumb {
 }
 
 .OneVideogame img{
-	height: 250px;
-	width: 350px;
+	height: 220px;
+	width: 320px;
 	z-index: 10000;
 	border-radius: 5px;
 }
 
 .Video-Image{
-	background: linear-gradient(90deg, rgba(25,41,112,0.7) 0%, rgba(9,28,121,0.7) 31%, rgba(44,18,78,0.7) 100%);
+	background-color: rgba(18, 17, 17, 0.9);
 	padding: 10px;
 	border-radius: 5px;
 	transition: 1s all ease;
 }
 
-.OneVideogame:hover .Video-Image{
-	border-radius: 0;
+.Video-Details{
+	background-color: rgba(18, 17, 17, 0.7);
+	border-radius: 5px;
+
+	position: absolute;
+	padding: 12px 17px;
+	width: 90%;
+	height: 90%;
+
+	opacity: 0;
+	transition: .5s all ease;
+}
+
+.OneVideogame:hover .Video-Details{
+	opacity: 1;
 }
 
 .Video-Title{
-	background: linear-gradient(90deg, rgba(25,41,112,0.7) 0%, rgba(9,28,121,0.7) 31%, rgba(44,18,78,0.7) 100%);
 	padding: 5px 0;
-	text-align: center;
-	border-radius: 5px 5px 0 0;
-
-
-	position: absolute;
-	width: 100%;
+	text-align: left;
 	top: 0;
-	opacity: 0;
-	transition: 1s all ease;
-}
-
-.OneVideogame:hover .Video-Title{
-	top: -64px;
-	opacity: 1;
 }
 
 .Video-Title h1{
@@ -181,55 +246,57 @@ body::-webkit-scrollbar-thumb {
 	color: #c3c4c7;
 }
 
-.Video-Genres{
-	background: linear-gradient(90deg, rgba(25,41,112,0.7) 0%, rgba(9,28,121,0.7) 31%, rgba(44,18,78,0.7) 100%);
-	padding: 5px 0;
-	text-align: center;
-	border-radius: 0 0 5px 5px;
+.Video-Genres,
+.Video-Platforms{
+	position: relative;
+	bottom: 0;
+	margin-top: 10px;
 
+	text-align: left;
 	display: flex;
 	justify-content: flex-start;
 	overflow-x: scroll;
-
-	position: absolute;
-	width: 100%;
-	bottom: 0;
-	opacity: 0;
-	transition: 1s all ease;
+}
+.Video-Genres{
+	margin-top: 60px;
 }
 
-.OneVideogame:hover .Video-Genres{
-	bottom: -45px;
-	opacity: 1;
-}
-
-.Video-Genres::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+.Video-Genres::-webkit-scrollbar,
+.Video-Platforms::-webkit-scrollbar{
+  height: 8px;
+  border-radius: 20px;
 }
  
-.Video-Genres::-webkit-scrollbar-track {
+.Video-Genres::-webkit-scrollbar-track,
+.Video-Platforms::-webkit-scrollbar-track{
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
 }
  
-.Video-Genres::-webkit-scrollbar-thumb {
-  background-color: #5c2ba6;
+.Video-Genres::-webkit-scrollbar-thumb,
+.Video-Platforms::-webkit-scrollbar-thumb{
+  background-color: #262626;
   border: none;
   border-radius: 20px;
   outline: none;
-  height: 5px;
+  height: 8px;
 }
 
-.Video-Genres .Genre{
-	background-color: black;
+.Video-Genres .Genre,
+.Video-Platforms .Platform{
+	background-color: rgba(10, 10, 10);
 	border-radius: 6px;
 	padding: 4px 8px;
 	margin: 3px;
 	width: auto;
 
-	font-size: 1.2rem;
+	text-align: center;
+	font-size: 10px;
 	font-weight: bold;
 	color: #c3c4c7;
+}
+.Video-Platforms .Platform{
+	min-width: 80px;
 }
 
 /* ------ VIDEOGAME DETAIL ------- */
@@ -242,15 +309,14 @@ body::-webkit-scrollbar-thumb {
 	"a b"
 	"c c";
 	align-items: start;
-
-	margin-top: 50px;
+	margin-top: 15px;
 	padding: 40px 20px;
 }
 
 .Image{
 	grid-area: a;
 
-	background: linear-gradient(90deg, rgba(25,41,112,0.7) 0%, rgba(9,28,121,0.7) 31%, rgba(44,18,78,0.7) 100%);
+	background-color: rgba(18, 17, 17, 0.9);
 	padding: 10px;
 	border-radius: 5px;
 	margin: auto;
@@ -259,50 +325,46 @@ body::-webkit-scrollbar-thumb {
 .DetailInformation{
 	grid-area: b;
 
-	background: linear-gradient(90deg, rgba(25,41,112,0.7) 0%, rgba(9,28,121,0.7) 31%, rgba(44,18,78,0.7) 100%);
+	background-color: rgba(18, 17, 17, 0.9);
 	padding: 0px 50px;
 }
 
-.DetailInformation .Video-Genres{
+.DetailInformation .Video-Genres,
+.DetailInformation .Video-Platforms{
 	background: transparent;
 	padding: 5px 0;
-	text-align: center;
+	margin: 0;
+	text-align: left;
 	border-radius: 0 0 5px 5px;
-
-	display: flex;
-	justify-content: flex-start;
 	overflow-x: hidden;
-
+	display: block;
 	position: relative;
 	width: 100%;
-	bottom: 0;
-	opacity: 1;
-	transition: 1s all ease;
+}
+
+.DetailInformation .Video-Genres .Genre,
+.DetailInformation .Video-Platforms .Platform{
+	font-size: 1.4rem;
 }
 
 .DetailInformation .Title{
-	font-size: 2.8rem;
+	font-size: 2.5rem;
+	color: #c3c4c7;
 }
 
 .DetailInformation h2{
 	font-size: 2.4rem;
+	color: #a8a8a8;
 }
 
 .DetailInformation .Rating{
-	background-color: #000000;
-	width: fit-content;
-	padding: 10px 20px;
-	border-radius: 10px;
 	font-size: 2.5rem;
 	font-weight: bold;
 	color: #c3c4c7;
 }
 
 .DetailInformation .ReleaseDate{
-	background-color: #000000;
 	width: fit-content;
-	padding: 5px 10px;
-	border-radius: 10px;
 	font-size: 2rem;
 	font-weight: bold;
 	color: #c3c4c7;
@@ -311,13 +373,13 @@ body::-webkit-scrollbar-thumb {
 .Description-Conteiner{
 	grid-area: c;
 
-	background: linear-gradient(90deg, rgba(25,41,112,0.7) 0%, rgba(9,28,121,0.7) 31%, rgba(44,18,78,0.7) 100%);
+	background-color: rgba(18, 17, 17, 0.9);
 	padding: 30px 40px;
 	margin: 50px 0;
 }
 
 .Description-Conteiner h2{
-	font-size: 2.4rem;
+	font-size: 2.6rem;
 	font-weight: bold;
 	color: #c3c4c7;
 }
@@ -325,6 +387,7 @@ body::-webkit-scrollbar-thumb {
 .Description-Conteiner .Description{
 	font-size: 1.8rem;
 	font-weight: bold;
+	color: #a8a8a8;
 }
 
 /* ------ ADD VIDEOGAME ------- */
@@ -335,12 +398,12 @@ body::-webkit-scrollbar-thumb {
 	grid-template-columns: repeat(2, 50%);
 	align-items: start;
 
-	margin-top: 40px;
+	margin-top: 15px;
 	padding: 40px 20px;
 }
 
 .CreationForm{
-	background: linear-gradient(90deg, rgba(25,41,112,0.7) 0%, rgba(9,28,121,0.7) 31%, rgba(44,18,78,0.7) 100%);
+	background-color: rgba(18, 17, 17, 0.9);
 	padding: 10px;
 	border-radius: 5px;
 	margin: auto;
@@ -398,11 +461,8 @@ body::-webkit-scrollbar-thumb {
 
 .CreationForm .FormField{
 	position: relative;
-	border: 2px solid #c3c4c7;
-	border-top: none;
-	border-right: none;
-	margin: 20px 25px;
-	padding: 25px 15px;
+	margin: 5px 10px;
+	padding: 5px 15px;
 }
 
 .CreationForm input,
@@ -411,7 +471,7 @@ body::-webkit-scrollbar-thumb {
 	width: 100%;
 	padding: 5px;
 	background-color: #19191c;
-	border: 2px solid #19191c;
+	border: 2px solid #2a2a2e;
 	border-radius: 5px;
 	outline: none;
 
@@ -420,30 +480,36 @@ body::-webkit-scrollbar-thumb {
 	color: #c3c4c7;
 }
 
+.CreationForm select{
+	width: 80%;
+}
+.CreationForm .SelectField{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+.CreationForm .SelectField button{
+	background-color: #19191c;
+	border-radius: 10px;
+	font-size: 2.5rem;
+	border: 1px solid #2a2a2e;
+	font-weight: bold;
+	color: #c3c4c7;
+
+	transition: .5s all ease;
+}
+
+.CreationForm .SelectField button:hover{
+	cursor: pointer;
+	background-color: #c3c4c7;
+	color: #121212;
+}
+
+
 .CreationForm textarea{
 	resize: none;
 	height: 100px;
 	padding: 10px;
-}
-
-.CreationForm textarea::-webkit-scrollbar,
-.CreationForm select::-webkit-scrollbar{
-  width: 10px;
-  border-radius: 5px;
-}
- 
-.CreationForm textarea::-webkit-scrollbar-track,
-.CreationForm select::-webkit-scrollbar-track{
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
- 
-.CreationForm textarea::-webkit-scrollbar-thumb,
-.CreationForm select::-webkit-scrollbar-thumb {
-  background-color: #5c2ba6;
-  border: none;
-  border-radius: 5px;
-  outline: none;
-  height: 15px;
 }
 
 .CreationForm .FormFooter{
@@ -456,25 +522,25 @@ body::-webkit-scrollbar-thumb {
 	font-weight: bold;
 	padding: 10px 20px;
 	border-radius: 10px;
-	border: 3px solid #083aa6;
-	background-color: #083aa6;
+	border: 3px solid #2a2a2e;
+	background-color: #19191c;
 	color: #b8b8b8;
 	transition: .5s all ease;
 }
 
 .CreationForm .FormFooter button:hover{
-	border: 3px solid #2c118a;
-	background-color: #2c118a;
+	border: 3px solid #2a2a2e;
+	background-color: #c3c4c7;
+	color: #121212;
 	cursor: pointer;
 	box-shadow: 0px 0px 5px 2px rgba(10, 10, 10, 0.4) inset;
 }
 
 .ViewSelected{
-	background: linear-gradient(90deg, rgba(25,41,112,0.7) 0%, rgba(9,28,121,0.7) 31%, rgba(44,18,78,0.7) 100%);
+	background-color: rgba(18, 17, 17, 0.9);
 	padding: 10px;
 	border-radius: 5px;
-	height: 400px;
-	margin-top: 100px;
+	height: 300px;
 
 
 	display: grid;
@@ -552,7 +618,7 @@ body::-webkit-scrollbar-thumb {
 }
  
 .Collection::-webkit-scrollbar-thumb{
-  background-color: #5c2ba6;
+  background-color: #242424;
   border: none;
   border-radius: 5px;
   outline: none;

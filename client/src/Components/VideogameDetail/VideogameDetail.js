@@ -28,27 +28,27 @@ export default function VideogameDetail(props) {
         <div className="Title">
           <h1>{videogame.name}</h1>
         </div>
-        <h2>Fecha de lanzamiento: <div className="ReleaseDate">{videogame.released}</div></h2>
-        <h2>Rating: <div className="Rating">{videogame.rating}</div></h2>
-        <h2>Generos:
-          <div className="Video-Genres">
+        <h2><span className="Arrow">&#5125;</span> Fecha de lanzamiento: <span className="ReleaseDate">{videogame.released}</span></h2>
+        <h2><span className="Arrow">&#5125;</span> Rating: <span className="Rating">{videogame.rating}</span></h2>
+        <h2><span className="Arrow">&#5125;</span> Generos:
+          <span className="Video-Genres">
               {videogame.categories && videogame.categories.map((genre, index) => 
-                  <div className={`Genre ${genre}`} key={index}>
+                  <span className={`Genre ${genre}`} key={index}>
                     {genre === "Massive Multiplayer" ? "MMO" : genre}
-                  </div>
+                  </span>
                 )
               }   
-          </div>
+          </span>
         </h2>
-        <h2>Plataformas:
-          <div className="Video-Genres">
+        <h2><span className="Arrow">&#5125;</span> Plataformas:
+          <span className="Video-Platforms">
               {videogame.platforms && videogame.platforms.map((plat, index) => 
-                  <div className={`Genre ${plat}`} key={index}>
+                  <span className={`Platform ${plat}`} key={index}>
                     {plat === "Massive Multiplayer" ? "MMO" : plat}
-                  </div>
+                  </span>
                 )
               }   
-          </div>
+          </span>
         </h2>
       </div>
       <div className="Description-Conteiner">

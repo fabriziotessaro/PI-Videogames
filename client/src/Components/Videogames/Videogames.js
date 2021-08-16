@@ -5,15 +5,16 @@ import { useDispatch, useSelector } from "react-redux";
 import OneVideogame from './../OneVideogame/OneVideogame.js';
 
 // actions
-import {getVideogames, getGenres, getFilteredVideogames} from './../../Actions/Actions.js';
+import {getVideogames, getGenres, getPlatforms, getFilteredVideogames} from './../../Actions/Actions.js';
 
 export default function Videogames() {
   // estados
   const [videogamesList, setVideogamesList] = useState([]);
   const [filterList, setFilterList] = useState({
-    categories: "see-all",
-    isMyGame: "see-all",
-    order: "Rdesc"
+    categories: "default",
+    platforms: "default",
+    isMyGame: "default",
+    order: "default"
   });
   const [pageProperties, setPageProperties] = useState({
     pageNum: 1,
@@ -24,11 +25,13 @@ export default function Videogames() {
   const dispatch = useDispatch();
   const videogames = useSelector(state => state.videogamesList);
   const categories = useSelector(state => state.genres);
+   const platforms = useSelector(state => state.platforms);
 
   // despacha estados del store cuando se monta el componente
   useEffect(() => {
     dispatch(getVideogames(false));
     dispatch(getGenres());
+    dispatch(getPlatforms());
   },[]);
 
   // actualiza el componente cuando se actualiza el estado de `videogamesList` 
@@ -73,33 +76,43 @@ export default function Videogames() {
   }
   return (
     <div className="Videogames">
-      <div className="Filters">
+      <div className="Filter Group1">
         <div className="OneFilter">
-          <label>Genero</label>
           <select name="categories" onChange={(e) => filterHandle(e)} defaultValue={filterList.categories}>
-            <option value="see-all">see-all</option>
+            <option value="default">TODOS LOS GENEROS</option>
           {categories && categories.map(genre =>
             <option key={genre.id} value={genre.id}>
-            {genre.name}
+            {genre.name.toUpperCase()}
             </option>
           )}
           </select>
         </div>
         <div className="OneFilter">
-          <label>Tipo</label>
+          <select name="platforms" onChange={(e) => filterHandle(e)} defaultValue={filterList.categories}>
+            <option value="default">TODAS LAS PLATAFORMAS</option>
+          {platforms && platforms.map(plat =>
+            <option key={plat.id} value={plat.id}>
+            {plat.name.toUpperCase()}
+            </option>
+          )}
+          </select>
+        </div>
+      </div>
+      <div className="Filter Group2">
+        <div className="OneFilter">
           <select name="isMyGame" onChange={(e) => filterHandle(e)} defaultValue={filterList.isMyGame}>
-            <option value="see-all">see-all</option>
-            <option value={true}>De la BD</option>
-            <option value={false}>De la API</option>
+            <option value="default">TODOS LOS JUEGOS</option>
+            <option value={false}>API RAWG</option>
+            <option value={true}>AGREGADOS</option>
           </select>
         </div>
         <div className="OneFilter">
-          <label>Ordenar</label>
-          <select name="order" onChange={(e) => filterHandle(e)} defaultValue={filterList.order}>
-            <option value="Rdesc">Rating &#9660;</option>
-            <option value="Rasc">Rating &#9650;</option>
-            <option value="A-Z">Nombre A-Z&#129045;</option>
-            <option value="Z-A">Nombre Z-A&#129047;</option>
+          <select name="order" onChange={(e) => filterHandle(e)}>
+            <option value="default">ORDENAR</option>
+            <option value="Rdesc">RATING &#9660;</option>
+            <option value="Rasc">RATING &#9650;</option>
+            <option value="A-Z">NOMBRE A-Z&#129045;</option>
+            <option value="Z-A">NOMBRE Z-A&#129047;</option>
           </select>
         </div>
       </div>
@@ -111,6 +124,7 @@ export default function Videogames() {
             name={game.name}
             img={game.background_image}
             genres={game.categories}
+            platforms={game.platforms}
           />)
         }
       </div>

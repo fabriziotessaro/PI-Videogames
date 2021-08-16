@@ -55,7 +55,7 @@ export function getFilteredVideogames(filterList){
 	// distinto al 'see-all' default
 
 	for(var key in filterList){
-		if(filterList[key] === "see-all") delete filterList[key];
+		if(filterList[key] === "default") delete filterList[key];
 	}
 	if(Object.keys(filterList).length > 0){
 		// crea una funcion que va a filtrar la lista de juegos en el reducer
@@ -64,6 +64,14 @@ export function getFilteredVideogames(filterList){
 			if(filterList.hasOwnProperty("categories")){
 				videogamesList = videogamesList.filter(game => {
 					let found = game.categories.find(cat => parseInt(cat.id) === parseInt(filterList.categories))
+					return found !== undefined
+				});
+			}
+
+			// filtra por paltaforma
+			if(filterList.hasOwnProperty("platforms")){
+				videogamesList = videogamesList.filter(game => {
+					let found = game.platforms.find(plat => parseInt(plat.id) === parseInt(filterList.platforms))
 					return found !== undefined
 				});
 			}

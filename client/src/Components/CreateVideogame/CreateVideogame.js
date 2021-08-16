@@ -44,15 +44,24 @@ export default function CreateVideogame(){
 
   // funcion para cambiar el formState
   function changeHandle(event){
+    setFormState({
+      ...formState,
+      [event.target.name]: event.target.value
+    });
+  }
+
+  // funcion para agregar generos o plataformas al juego
+  function addSelected(field){
     var array = []; // array para agregar platforms o genres
     var found; // variable para comprobar que no se repitan platforms o genres
+    var selectValue = document.querySelector(`select[name='${field}']`).value; // valor del select
 
     // agregar generos al videojuego
-    if(event.target.name === "genres" && event.target.value !== ""){
+    if(field === "genres" && selectValue !== ""){
       array = formState.genres;
-      found = array.find(a => a === parseInt(event.target.value));
+      found = array.find(a => a === parseInt(selectValue));
       if(!found){
-        array.push(parseInt(event.target.value));
+        array.push(parseInt(selectValue));
         setFormState({
           ...formState,
           genres: array
@@ -60,25 +69,19 @@ export default function CreateVideogame(){
       }
     }
     // agregar plataformas al videojuego
-    else if(event.target.name === "platforms" && event.target.value !== ""){
+    else if(field === "platforms" && selectValue !== ""){
       array = formState.platforms;
-      found = array.find(a => a === parseInt(event.target.value));
+      found = array.find(a => a === parseInt(selectValue));
       if(!found){
-        array.push(parseInt(event.target.value));
+        array.push(parseInt(selectValue));
         setFormState({
           ...formState,
           platforms: array
         });
       }
     }
-    // agregar otros campos al juego
-    else{
-      setFormState({
-        ...formState,
-        [event.target.name]: event.target.value
-      });
-    }
   }
+
   // funcion para enviar los datos del formState
   function submitHandle(event){
     event.preventDefault();
@@ -130,22 +133,28 @@ export default function CreateVideogame(){
             <div className="Column2">  
               <div className="FormField">
                 <h3>Generos</h3>
-                <select className={errors.genres && "Error"} name="genres" onChange={(e) => changeHandle(e)}>
-                    <option value=""></option>
-                  {categories && categories.map(genre =>
-                    <option key={genre.id} value={genre.id}>{genre.name}</option>
-                  )}
-                </select>
+                <div className="SelectField">
+                  <select className={errors.genres && "Error"} name="genres">
+                      <option value=""></option>
+                    {categories && categories.map(genre =>
+                      <option key={genre.id} value={genre.id}>{genre.name}</option>
+                    )}
+                  </select>
+                  <button onClick={() => addSelected('genres')} type="button">+</button>
+                </div>
                 {errors.genres && <h4>{errors.genres}</h4>}
               </div>
               <div className="FormField">
                 <h3>Plataformas</h3>
-                <select className={errors.platforms && "Error"} name="platforms" onChange={(e) => changeHandle(e)}>
-                    <option value=""></option>
-                  {platforms && platforms.map(plat =>
-                    <option key={plat.id} value={plat.id}>{plat.name}</option>
-                  )}
-                </select>
+                <div className="SelectField">
+                  <select className={errors.platforms && "Error"} name="platforms">
+                      <option value=""></option>
+                    {platforms && platforms.map(plat =>
+                      <option key={plat.id} value={plat.id}>{plat.name}</option>
+                    )}
+                  </select>
+                  <button onClick={() => addSelected('platforms')} type="button">+</button>
+                </div>
                 {errors.platforms && <h4>{errors.platforms}</h4>}
               </div>
             </div>
