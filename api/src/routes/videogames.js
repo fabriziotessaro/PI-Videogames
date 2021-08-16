@@ -2,7 +2,7 @@ require('dotenv').config();
 const axios = require('axios');
 const {API_KEY} = process.env;
 const { Router } = require('express');
-const {Videogame} = require('../db.js');
+const {Videogame, Category, Platform} = require('../db.js');
 const { Op } = require("sequelize");
 const videogames = Router();
 
@@ -11,10 +11,20 @@ videogames.get("/", async (req, res, next) => {
 		const {name} = req.query;
 		// Busqueda de un juego
 		if(name){
-			const data = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`);
-			// Si se encuentra al menos un resultado
-			if(data.data.count > 0){
-				let games = data.data.results.map(game => {
+			// busca en la BD
+			const gamesDB = await Videogame.findAll({
+				where:{
+					name:{ [Op.like]: `${name}%`, }
+				},
+				include:[Category, Platform]
+			});			
+
+			// Luego en la API RAWG
+			let dataAPI = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`);
+			// Si se encuentra al menos un resultado lo mapea
+			// en un formato que coincida con la BD
+			if(dataAPI.data.count > 0){
+				const gamesRAWG = dataAPI.data.results.map(game => {
 					return{
 						id: game.id,
 						name: game.name,
@@ -28,26 +38,19 @@ videogames.get("/", async (req, res, next) => {
 						isMyGame: false
 					}
 				});
-				if(games.length > 15) games.splice(15);
-				res.status(200).json({count: games.length, games});
 			}
-			// Si no hay resultados
-			else{
-				const data = await Videogame.findAll({
-					where:{
-						name:{ [Op.like]: `%${name}%`, }
-					}
-				});
-				let games = data.map(game => {
-					return{
-						name: game.name,
-						categories: game.genres,
-						rating: game.rating,
-						isMyGame: game.isMyGame
-					}
-				});
+			// luego concatena ambos resultados
+			const games = [...gamesDB,...gamesRAWG];
+
+			// si encontro juegos, los envia
+			if(games.length > 0){
+				// solo envia los primeros 15
 				if(games.length > 15) games.splice(15);
 
+				res.status(200).json(games);
+			}
+			// sino, avisa
+			else{
 				res.status(404).json({msg: "Game Not Found"});
 			}
 		}
