@@ -10,7 +10,7 @@ export default function VideogameDetail(props) {
   const {idVideogame} = props.match.params;
   const dispatch = useDispatch();
   const videogame = useSelector(state => state.videogameDetail);
-
+console.log(videogame)
   // despacha el juego
   useEffect(() => {
     dispatch(getVideogameDetail(idVideogame));
@@ -33,8 +33,8 @@ export default function VideogameDetail(props) {
         <h2><span className="Arrow">&#5125;</span> Generos:
           <span className="Video-Genres">
               {videogame.categories && videogame.categories.map((genre, index) => 
-                  <span className={`Genre ${genre}`} key={index}>
-                    {genre === "Massive Multiplayer" ? "MMO" : genre}
+                  <span className={`Genre ${genre.name}`} key={index}>
+                    {genre.name === "Massive Multiplayer" ? "MMO" : genre.name}
                   </span>
                 )
               }   
@@ -43,8 +43,8 @@ export default function VideogameDetail(props) {
         <h2><span className="Arrow">&#5125;</span> Plataformas:
           <span className="Video-Platforms">
               {videogame.platforms && videogame.platforms.map((plat, index) => 
-                  <span className={`Platform ${plat}`} key={index}>
-                    {plat === "Massive Multiplayer" ? "MMO" : plat}
+                  <span className={`Platform ${plat.name}`} key={index}>
+                    {plat.name === "Massive Multiplayer" ? "MMO" : plat.name}
                   </span>
                 )
               }   

@@ -34,7 +34,7 @@
 
 .CreationForm h4{ /* mensaje de error */
 	position: absolute;
-	bottom: -15px;
+	bottom: -35px;
 
 	font-size: 1.5rem;
 	font-weight: bold;
@@ -130,6 +130,7 @@
 	resize: none;
 	height: 100px;
 	padding: 10px;
+	width: 95%;
 }
 
 .CreationForm .FormFooter{
@@ -243,4 +244,33 @@
   border-radius: 5px;
   outline: none;
   height: 15px;
+}
+
+.PrevView{
+	display: grid;
+}
+
+.ViewImage{
+	background-color: rgba(18, 17, 17, 0.9);
+	padding: 10px;
+	margin: auto;
+	margin-bottom: 20px;
+	border-radius: 5px;
+	height: 350px;
+	width: 450px;
+
+	display: grid;
+}
+
+.ViewImage svg{
+	height: 150px;
+	width: 150px;
+	margin: auto;
+	color: #828282;
+}
+
+.ViewImage img{
+	height: 350px;
+	width: 450px;
+	margin: auto;
 }

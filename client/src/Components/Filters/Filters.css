@@ -8,7 +8,7 @@
 }
 
 .Filter select{
-	width: 300px;
+	width: 200px;
 	padding: 10px;
 	margin: 0;
 	background-color: #0a0909;
@@ -16,7 +16,7 @@
 	border-radius: 5px;
 	outline: none;
 
-	font-size: 1.8rem;
+	font-size: 1.3rem;
 	font-weight: bold;
 	color: #c3c4c7;
 

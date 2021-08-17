@@ -14,7 +14,8 @@ export default function Videogames() {
   const [videogamesList, setVideogamesList] = useState([]);
   const [pageProperties, setPageProperties] = useState({
     pageNum: 1,
-    pages:[]
+    pageCant:1,
+    actualPages:[1]
   });
 
   // store stuff
@@ -30,60 +31,72 @@ export default function Videogames() {
   // o los filtros o se cambia de pagina
   useEffect(() => {
     var actualPage = videogames.slice((pageProperties.pageNum*9)-9, 9*pageProperties.pageNum);
-    var pageCant = Math.ceil(videogames.length / 9);
-    var pages = [];
-    for(let page = 1; page <= pageCant; page++){
-      pages.push(page);
+    if(pageProperties.pageCant<= 1 && videogames.length > 9){
+      setPageProperties({
+          ...pageProperties,
+          pageCant: Math.ceil(videogames.length / 9),
+          actualPages: [1,2,3]
+      })
     }
 
-    setPageProperties({
-      ...pageProperties,
-      pages: pages
-    });
     setVideogamesList(actualPage);
   },[videogames, pageProperties.pageNum]);
 
   //funcion para cambiar de pagina de la lista de videojuegos
-  function changePage(page){
-    var pageCant = Math.ceil(videogames.length / 9);
+  function changePage(pageSelected){
+    var page = pageSelected;
+    // posicion actual
     switch(page){
       case 'prev':
       if(pageProperties.pageNum !== 1){
+        page = pageProperties.pageNum - 1;
         setPageProperties({
           ...pageProperties,
-          pageNum: pageProperties.pageNum - 1
+          pageNum: pageProperties.pageNum - 1,
+          actualPages: page > 1 ? [page-1,page,page+1] : [1,2,3]
         })
       }
       break;
       case 'next':
-      if(pageProperties.pageNum < pageCant){
+      if(pageProperties.pageNum < pageProperties.pageCant){
+        page = pageProperties.pageNum + 1;
         setPageProperties({
           ...pageProperties,
-          pageNum: pageProperties.pageNum + 1
+          pageNum: pageProperties.pageNum + 1,
+          actualPages: page < pageProperties.pageCant ? [page-1,page,page+1] 
+          : [pageProperties.pageCant-2,pageProperties.pageCant-1,pageProperties.pageCant]
         })
       }
       break;
       case 'first':
       if(pageProperties.pageNum !== 1){
+        page = 1;
         setPageProperties({
           ...pageProperties,
-          pageNum: 1
+          pageNum: 1,
+          actualPages: [1,2,3]
         })
       }
       break;
       case 'last':
-      if(pageProperties.pageNum < pageCant){
+      if(pageProperties.pageNum < pageProperties.pageCant){
+        page = pageProperties.pageCant;
         setPageProperties({
           ...pageProperties,
-          pageNum: pageCant
+          pageNum: pageProperties.pageCant,
+          actualPages: [pageProperties.pageCant-2,pageProperties.pageCant-1,pageProperties.pageCant]
         })
       }
       break;
       default:
         setPageProperties({
-        ...pageProperties,
-        pageNum: page
-      })
+          ...pageProperties,
+          pageNum: page,
+          actualPages: page === 1 ? [1,2,3] 
+          : page === pageProperties.pageCant ? [pageProperties.pageCant-2,pageProperties.pageCant-1,pageProperties.pageCant] 
+          : [page-1,page,page+1]
+        })
+      break;
     }
   }
   return (
@@ -106,10 +119,12 @@ export default function Videogames() {
           <h4 onClick={() => changePage('first')}>&#10094;&#10094;</h4>
           <h4 onClick={() => changePage('prev')}>&#10094;</h4>
         </div>
-        <div className="PageNumbers">
-          {pageProperties.pages && pageProperties.pages.map(page => 
-            <h4 key={page} onClick={() => changePage(page)}>{page}</h4>
-          )}
+        <div className="PageNumbers">    
+        {pageProperties.actualPages.map(page => 
+          <h4 className={page === pageProperties.pageNum ? "Actual" : ""} 
+            key={page} onClick={() => changePage(page)}>{page}
+          </h4>
+        )}
         </div>
         <div className="PageArrows">
           <h4 onClick={() => changePage('next')}>&#10095;</h4>

@@ -50,7 +50,7 @@
   }
 }
 
-.Title{
+.Landing .Title{
 	position: absolute;
 	text-align: center;
 	animation-name: SlideFromTop;
@@ -61,7 +61,7 @@
 	left: -50%;
 }
 
-.Title h1{
+.Landing .Title h1{
 	font-size: 90px;
 	font-family: Garamond;
 	font-weight: bold;

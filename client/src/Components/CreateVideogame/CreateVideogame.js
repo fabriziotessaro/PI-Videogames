@@ -11,6 +11,7 @@ export default function CreateVideogame(){
     description:"",
     releaseDate:"",
     rating:"",
+    background_image:"",
     genres:[],
     platforms:[]
   });
@@ -44,10 +45,16 @@ export default function CreateVideogame(){
 
   // funcion para cambiar el formState
   function changeHandle(event){
+    // setea el estado
     setFormState({
       ...formState,
       [event.target.name]: event.target.value
     });
+    // setea errores en false (durante el onchange)
+    setErrors(validateForm({
+      ...formState,
+      [event.target.name]: event.target.value
+    }, false));
   }
 
   // funcion para agregar generos o plataformas al juego
@@ -86,8 +93,8 @@ export default function CreateVideogame(){
   function submitHandle(event){
     event.preventDefault();
 
-    // validacion del form, guardo resultados
-    let validate = validateForm(formState);
+    // validacion del form para hacer submit(true), guardo resultados
+    let validate = validateForm(formState, true);
 
     // si no hay errores, postea el videojuego
     if(Object.keys(validate).length === 0){
@@ -157,6 +164,12 @@ export default function CreateVideogame(){
                 </div>
                 {errors.platforms && <h4>{errors.platforms}</h4>}
               </div>
+              <div className="FormField">
+                <h3>Imagen</h3>
+                <input className={errors.background_image && "Error"} name="background_image" 
+                onChange={(e) => changeHandle(e)}/>
+                {errors.background_image && <h4>{errors.background_image}</h4>}
+              </div>
             </div>
             <div className="DescriptionField">
               <div className="FormField">
@@ -170,33 +183,44 @@ export default function CreateVideogame(){
             </div>
           </form>
         </div>
-        <div className="ViewSelected">
-          <div className="SelectList Genres">
-            <h4>Generos seleccionados</h4>
-            <div className="Collection">
-              {formState.genres.length === 0 ? <h4 className="Empty">No hay generos</h4> : 
-                formState.genres.map(genre => { 
-                  let genreName = categories.find(cat => cat.id === genre).name
-                  return(
-                    <h5 key={genre}>{genreName}
-                    <span onClick={() => deleteSelected({name:"genres", value:genre})}> X </span></h5>
-                  )
-                })
-              }
-            </div>
+        <div className="PrevView">
+          <div className="ViewImage">
+          {formState.background_image !== "" && !errors.background_image ? 
+            <img src={formState.background_image}/> 
+            :
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+            </svg>
+          }
           </div>
-          <div className="SelectList Platforms">
-            <h4>Plataformas seleccionadas</h4>
-            <div className="Collection">
-              {formState.platforms.length === 0 ? <h4 className="Empty">No hay plataformas</h4> :
-                formState.platforms.map(plat => {
-                  let platName = platforms.find(pat => pat.id === plat).name
-                  return(
-                    <h5 key={plat}>{platName} 
-                    <span onClick={() => deleteSelected({name:"platforms", value:plat})}> X </span></h5>
-                  )
-                })
-              }
+          <div className="ViewSelected">
+            <div className="SelectList Genres">
+              <h4>Generos seleccionados</h4>
+              <div className="Collection">
+                {formState.genres.length === 0 ? <h4 className="Empty">No hay generos</h4> : 
+                  formState.genres.map(genre => { 
+                    let genreName = categories.find(cat => cat.id === genre).name
+                    return(
+                      <h5 key={genre}>{genreName}
+                      <span onClick={() => deleteSelected({name:"genres", value:genre})}> X </span></h5>
+                    )
+                  })
+                }
+              </div>
+            </div>
+            <div className="SelectList Platforms">
+              <h4>Plataformas seleccionadas</h4>
+              <div className="Collection">
+                {formState.platforms.length === 0 ? <h4 className="Empty">No hay plataformas</h4> :
+                  formState.platforms.map(plat => {
+                    let platName = platforms.find(pat => pat.id === plat).name
+                    return(
+                      <h5 key={plat}>{platName} 
+                      <span onClick={() => deleteSelected({name:"platforms", value:plat})}> X </span></h5>
+                    )
+                  })
+                }
+              </div>
             </div>
           </div>
         </div>
@@ -205,29 +229,33 @@ export default function CreateVideogame(){
 }
 
 // funcion para validar inputs
-function validateForm(form){
+// submit = true / false (onchange)
+function validateForm(form,submit){
   let errors = {};
-  const VOID_FIELD = "Campo obligatorio.";
-  if(!form.name){
-    errors.name = VOID_FIELD;
+  const VOID_FIELD = "Campo vacio.";
+
+  // valida que ningun campo este vacio si se submitea
+  if(submit){
+    for(let field in form){
+      if(typeof form[field] === 'string'){
+        if(form[field].trim() === ""){
+          errors[field] = VOID_FIELD;
+        }
+      }
+      else if(form[field].length === 0){
+        errors[field] = VOID_FIELD;
+      }
+    }
   }
-  if(!form.releaseDate){
-    errors.releaseDate = VOID_FIELD;
-  } 
-  if(!form.rating){
-    errors.rating = VOID_FIELD;
-  } else if(isNaN(form.rating)){
+
+  if(isNaN(form.rating)){
     errors.rating = "Solo se admiten numeros.";
   }
-  if(form.genres.length === 0){
-    errors.genres = VOID_FIELD;
-  } 
-  if(form.platforms.length === 0){
-    errors.platforms = VOID_FIELD;
-  } 
-  if(!form.description){
-    errors.description = VOID_FIELD;
-  } 
 
+  const regUrl = /^(ftp|http|https):\/\/[^ "]+$/;
+  if(!regUrl.test(form.background_image)){
+    errors.background_image = "URL no valida.";
+  }
+  
   return errors
 }
