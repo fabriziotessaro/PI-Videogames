@@ -28,7 +28,10 @@ videogame.get("/:idVideogame", async (req, res, next) => {
 						description: dataAPI.data.description,
 						released: dataAPI.data.released,
 						rating: dataAPI.data.rating,
-						platforms: dataAPI.data.platforms
+						platforms: dataAPI.data.platforms.map(plat => {return{
+							id: plat.platform.id,
+							name: plat.platform.name
+						}}),
 					};
 				}
 			}

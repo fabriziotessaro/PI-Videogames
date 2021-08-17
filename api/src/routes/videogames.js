@@ -45,7 +45,6 @@ videogames.get("/", async (req, res, next) => {
 
 				games = [...games, ...gamesRAWG];
 			}
-			console.log(games)
 
 			// si encontro juegos, los envia
 			if(games.length > 0){
