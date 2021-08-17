@@ -6,7 +6,9 @@ const { Videogame, conn } = require('../../src/db.js');
 
 const agent = session(app);
 const videogame = {
-  name: 'Super Mario Bros',
+  name: 'Metal Gear Solid',
+  description: 'saracatunga',
+  background_image: 'imagen'
 };
 
 describe('Videogame routes', () => {
@@ -16,9 +18,19 @@ describe('Videogame routes', () => {
   }));
   beforeEach(() => Videogame.sync({ force: true })
     .then(() => Videogame.create(videogame)));
-  describe('GET /videogames', () => {
-    it('should get 200', () =>
-      agent.get('/videogames').expect(200)
+  describe('GET /genres', () => {
+    it('/genres should get 200', () =>
+      agent.get('/genres').expect(200)
+    );
+  });
+  describe('GET /platforms', () => {
+    it('/platforms should get 200', () =>
+      agent.get('/platforms').expect(200)
+    );
+  });
+  describe('GET /videogame/3328(idVideogame)', () => {
+    it('/videogame/3328 should get 200', () =>
+      agent.get('/videogame/3328').expect(200)
     );
   });
 });
