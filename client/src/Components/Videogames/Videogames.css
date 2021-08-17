@@ -15,17 +15,20 @@
 /* ------ PAGES BUTTONS ------- */
 
 .PageButtons{
-	background-color: rgba(18, 17, 17, 0.9);
 	border-radius: 5px;
 
 	position: fixed;
 	bottom: 0px;
-	z-index: 100000;
+	z-index: 10000;
 	padding: 5px;
 	margin: 0 38.5%;
 
 	display: flex;
 	justify-content: space-between;
+	transition: .5s all ease;
+}
+.PageButtons:hover{
+	background-color: rgba(18, 17, 17, 0.9);
 }
 
 .PageNumbers,

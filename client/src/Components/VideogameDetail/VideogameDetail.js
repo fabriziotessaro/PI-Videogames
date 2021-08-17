@@ -10,7 +10,6 @@ export default function VideogameDetail(props) {
   const {idVideogame} = props.match.params;
   const dispatch = useDispatch();
   const videogame = useSelector(state => state.videogameDetail);
-console.log(videogame)
   // despacha el juego
   useEffect(() => {
     dispatch(getVideogameDetail(idVideogame));

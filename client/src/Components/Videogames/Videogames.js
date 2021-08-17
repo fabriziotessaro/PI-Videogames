@@ -24,18 +24,22 @@ export default function Videogames() {
 
   // despacha estados del store cuando se monta el componente
   useEffect(() => {
-    dispatch(getVideogames(false));
+    if(videogames.length === 0){
+      dispatch(getVideogames(false));
+    }
   },[]);
 
   // actualiza el componente cuando se actualiza el estado de `videogamesList` 
   // o los filtros o se cambia de pagina
   useEffect(() => {
     var actualPage = videogames.slice((pageProperties.pageNum*9)-9, 9*pageProperties.pageNum);
-    if(pageProperties.pageCant<= 1 && videogames.length > 9){
+    if(videogames.length > 9){
       setPageProperties({
           ...pageProperties,
           pageCant: Math.ceil(videogames.length / 9),
-          actualPages: [1,2,3]
+          actualPages: videogames.length <= 15 ? 
+          [1,2] : [1,2,3]
+
       })
     }
 
@@ -53,7 +57,9 @@ export default function Videogames() {
         setPageProperties({
           ...pageProperties,
           pageNum: pageProperties.pageNum - 1,
-          actualPages: page > 1 ? [page-1,page,page+1] : [1,2,3]
+          actualPages: pageProperties.pageCant <= 2 ? [1,2] 
+          : page > 1 ? [page-1,page,page+1] 
+          : [1,2,3]
         })
       }
       break;
@@ -63,7 +69,8 @@ export default function Videogames() {
         setPageProperties({
           ...pageProperties,
           pageNum: pageProperties.pageNum + 1,
-          actualPages: page < pageProperties.pageCant ? [page-1,page,page+1] 
+          actualPages: pageProperties.pageCant <= 2 ? [1,2] 
+          : page < pageProperties.pageCant ? [page-1,page,page+1] 
           : [pageProperties.pageCant-2,pageProperties.pageCant-1,pageProperties.pageCant]
         })
       }
@@ -84,7 +91,8 @@ export default function Videogames() {
         setPageProperties({
           ...pageProperties,
           pageNum: pageProperties.pageCant,
-          actualPages: [pageProperties.pageCant-2,pageProperties.pageCant-1,pageProperties.pageCant]
+          actualPages: pageProperties.pageCant <= 2 ? [1,2] 
+          : [pageProperties.pageCant-2,pageProperties.pageCant-1,pageProperties.pageCant]
         })
       }
       break;
@@ -92,7 +100,8 @@ export default function Videogames() {
         setPageProperties({
           ...pageProperties,
           pageNum: page,
-          actualPages: page === 1 ? [1,2,3] 
+          actualPages: pageProperties.pageCant <= 2 ? [1,2] 
+          : page === 1 ? [1,2,3] 
           : page === pageProperties.pageCant ? [pageProperties.pageCant-2,pageProperties.pageCant-1,pageProperties.pageCant] 
           : [page-1,page,page+1]
         })

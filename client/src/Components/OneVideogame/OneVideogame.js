@@ -14,7 +14,7 @@ export default function OneVideogame({id,name,img,genres,platforms}) {
           <div className="Video-Genres">
             {genres.map((genre, index) => 
                 <div className={`Genre ${genre.name}`} key={index}>
-                  {genre.name === "Massive Multiplayer" ? "MMO" : genre.name}
+                  {genre.name === "Massively Multiplayer" ? "MMO" : genre.name}
                 </div>
               )
             } 

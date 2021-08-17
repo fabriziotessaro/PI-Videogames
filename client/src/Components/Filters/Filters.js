@@ -13,6 +13,10 @@ export default function Filters() {
     isMyGame: "default",
     order: "default"
   });
+  const [showFilters, setShowFilters] = useState({
+    left: false,
+    right: false,
+  });
 
   // store stuff
   const dispatch = useDispatch();
@@ -50,9 +54,25 @@ export default function Filters() {
       [event.target.name]: value
     });
   }
+
+  function showFiltersHandle(side){
+    if(side === "left"){
+      setShowFilters({
+        ...showFilters,
+        left: !showFilters.left
+      })
+    }
+    else{
+      setShowFilters({
+        ...showFilters,
+        right: !showFilters.right
+      })
+    }
+  }
+
   return (
     <div className="Filters">
-      <div className="Filter Group1">
+      <div className={showFilters.left ? "Filter Group1 ActiveLeft" : "Filter Group1"}>
         <div className="OneFilter">
           <select name="categories" onChange={(e) => filterHandle(e)} defaultValue={filterList.categories}>
             <option value="default">TODOS LOS GENEROS</option>
@@ -73,8 +93,11 @@ export default function Filters() {
           )}
           </select>
         </div>
+        <div className="Grab" onClick={() => showFiltersHandle('left')}>
+          <span>Filtros</span>
+        </div>
       </div>
-      <div className="Filter Group2">
+      <div className={showFilters.right ? "Filter Group2 ActiveRight" : "Filter Group2"}>
         <div className="OneFilter">
           <select name="isMyGame" onChange={(e) => filterHandle(e)} defaultValue={filterList.isMyGame}>
             <option value="default">TODOS LOS JUEGOS</option>
@@ -90,6 +113,9 @@ export default function Filters() {
             <option value="A-Z">NOMBRE A-Z&#129045;</option>
             <option value="Z-A">NOMBRE Z-A&#129047;</option>
           </select>
+        </div>
+        <div className="Grab" onClick={() => showFiltersHandle('right')}>
+          <span>Filtros</span>
         </div>
       </div>
     </div>

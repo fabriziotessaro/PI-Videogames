@@ -4,7 +4,7 @@
 	display: flex;
 	justify-content: center;
 	margin: 20px auto;
-	z-index: 10000;
+	z-index: 1000;
 }
 
 .OneVideogame a{

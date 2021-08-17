@@ -2,13 +2,14 @@
 .Filter{
 	position: fixed;
 	bottom: -40px;
-	z-index: 100000;
+	z-index: 10000;
 	padding: 20px 0;
 	margin: 50px 0;
+	border-radius: 5px;
 }
 
 .Filter select{
-	width: 200px;
+	width: 250px;
 	padding: 10px;
 	margin: 0;
 	background-color: #0a0909;
@@ -24,16 +25,77 @@
 	transition: .5s all ease;
 }
 
-.Filter select:hover{
+.Filter select:hover,
+.Group1 .Grab:hover,
+.Group2 .Grab:hover{
 	cursor: pointer;
 	background-color: #c3c4c7;
 	color: #121212;
 }
 
+.Group1{
+	text-align: left;
+	left: -340px;
+	transition: .5s all ease;
+}
+
 .Group2{
 	text-align: right;
+	right: -340px;
+	transition: .5s all ease;
+}
+
+.Group1 .Grab,
+.Group2 .Grab{
+	position: absolute;
+	right: -40px;
+	top: 0;
+	padding: 0 10px;
+	height: 100%;
+	margin: 0;
+	background-color: #0a0909;
+	border: 3px solid #19191c;
+	border-radius: 5px;
+	border-top-right-radius: 50px;
+	border-bottom-right-radius: 50px;
+
+	font-size: 1.3rem;
+	font-weight: bold;
+	color: #c3c4c7;
+	text-align: center;
+	writing-mode: vertical-lr;
+
+	box-shadow: 0 0 5px 2px #0a0909;
+	transition: .5s all ease;
+}
+
+.Group2 .Grab{
+	right: unset;
+	left: -40px;
+	border-radius: 5px;
+	border-top-left-radius: 50px;
+	border-bottom-left-radius: 50px;
+}
+
+.ActiveLeft{
+	left: 0;
+}
+.ActiveRight{
 	right: 0;
 }
+.ActiveLeft:hover,
+.ActiveRight:hover{
+	background-color: rgba(18, 17, 17, 0.9);
+}
+.ActiveLeft .Grab,
+.ActiveRight .Grab{
+	opacity: 0;
+}
+.ActiveLeft:hover .Grab,
+.ActiveRight:hover .Grab{
+	opacity: 1;
+}
+
 
 .OneFilter{
 	margin: 10px 20px;
