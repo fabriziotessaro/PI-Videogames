@@ -9,6 +9,7 @@ const videogames = Router();
 videogames.get("/", async (req, res, next) => {
 	try{
 		const {name} = req.query;
+		var games = [];
 		// Busqueda de un juego
 		if(name){
 			// busca en la BD
@@ -17,13 +18,16 @@ videogames.get("/", async (req, res, next) => {
 					name:{ [Op.like]: `${name}%`, }
 				},
 				include:[Category, Platform]
-			});			
+			});	
+
+			games = gamesDB;
 
 			// Luego en la API RAWG
-			let dataAPI = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`);
+			const dataAPI = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`);
 			// Si se encuentra al menos un resultado lo mapea
 			// en un formato que coincida con la BD
 			if(dataAPI.data.count > 0){
+
 				const gamesRAWG = dataAPI.data.results.map(game => {
 					return{
 						id: game.id,
@@ -38,16 +42,17 @@ videogames.get("/", async (req, res, next) => {
 						isMyGame: false
 					}
 				});
+
+				games = [...games, ...gamesRAWG];
 			}
-			// luego concatena ambos resultados
-			const games = [...gamesDB,...gamesRAWG];
+			console.log(games)
 
 			// si encontro juegos, los envia
 			if(games.length > 0){
 				// solo envia los primeros 15
 				if(games.length > 15) games.splice(15);
 
-				res.status(200).json(games);
+				res.status(200).json({count: games.length, games});
 			}
 			// sino, avisa
 			else{
@@ -56,27 +61,38 @@ videogames.get("/", async (req, res, next) => {
 		}
 		// Traer todos los juegos
 		else{
-			const dataAPI = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`);
-			const gamesRAWG = dataAPI.data.results.map(game => {
-				return{
-					id: game.id,
-					name: game.name,
-					background_image: game.background_image,
-					rating: game.rating,
-					categories: game.genres,
-					platforms: game.platforms.map(plat => {return{
-						id: plat.platform.id,
-						name: plat.platform.name
-					}}),
-					isMyGame: false
-				}
-			});
+			let games = [];
+
+			// hace llamados a la API RAWG hasta tener 100 juegos (tarda 8-10seg aprox)
+			let page = 1;
+			while(games.length < 100){
+				const dataAPI = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=${page}`);
+				const gamesRAWG = dataAPI.data.results.map(game => {
+					return{
+						id: game.id,
+						name: game.name,
+						background_image: game.background_image,
+						rating: game.rating,
+						categories: game.genres,
+						platforms: game.platforms.map(plat => {
+							return{
+								id: plat.platform.id,
+								name: plat.platform.name
+							}	
+						}),
+						isMyGame: false
+					}
+				});
+				games = [...games,...gamesRAWG];
+				page = page + 1;
+			}
+			
 
 			const gamesDB = await Videogame.findAll({
 				include:[Category, Platform]
 			});	
 			
-			const games = [...gamesDB,...gamesRAWG];
+			games = [...gamesDB,...games];
 			
 			res.status(200).json({count: games.length, games});
 		}

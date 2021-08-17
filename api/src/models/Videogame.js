@@ -18,6 +18,10 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    background_image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     releaseDate: {
       type: DataTypes.DATE,
     },
