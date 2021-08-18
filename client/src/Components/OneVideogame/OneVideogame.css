@@ -43,6 +43,7 @@
 }
 
 .Video-Title{
+	position: relative;
 	padding: 5px 0;
 	text-align: left;
 	top: 0;
@@ -56,19 +57,19 @@
 
 .Video-Genres,
 .Video-Platforms{
-	position: relative;
-	bottom: 0;
-	margin-top: 10px;
-
+	position: absolute;
 	text-align: left;
 	display: flex;
 	justify-content: flex-start;
 	overflow-x: scroll;
+	width: 90%;
 }
 .Video-Genres{
-	margin-top: 60px;
+	bottom: 60px;
 }
-
+.Video-Platforms{
+	bottom: 15px;
+}
 .Video-Genres::-webkit-scrollbar,
 .Video-Platforms::-webkit-scrollbar{
   height: 8px;
@@ -104,5 +105,31 @@
 	color: #c3c4c7;
 }
 .Video-Platforms .Platform{
-	min-width: 80px;
+	min-width: 100px;
+}
+
+.Video-Rating{
+	position: absolute;
+	bottom: 110px;
+	width: 45%;
+
+	text-align: left;
+	font-size: 18px;
+	font-weight: bold;
+	color: #c3c4c7;
+
+	display: flex;
+	justify-content: flex-start;
+}
+.Video-Rating span{
+	margin-left: 5px;
+}
+.Video-Rating div{
+	display: flex;
+	justify-content: flex-start;
+}
+.Video-Rating svg{
+	color: #c3c4c7;
+	height: 24px;
+	width: 24px;
 }

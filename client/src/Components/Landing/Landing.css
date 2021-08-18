@@ -2,7 +2,7 @@
 
 .Landing{
 	position: relative;
-	background-color: rgba(18, 17, 17, 0.9);
+	background-color: rgba(18, 17, 17, 0.5);
 	width: 100%;
 	height: 100vh;
 
@@ -11,7 +11,10 @@
 
 .Access{
 	position: relative;
-	margin: auto;
+	margin: 80vh auto;
+	z-index: 10000000;
+
+	animation: StartButton 8.5s;
 }
 
 .Access a{
@@ -38,6 +41,86 @@
 	box-shadow: 0 0 10px 2px #1c1c1c inset;
 }
 
+.Landing .Title{
+	position: absolute;
+	text-align: center;
+	animation-name: SlideFromTop;
+	animation-duration: 7s;
+
+	background-color: rgba(20, 20, 20, 0.8);
+	box-shadow: 0 0 10px 2px  rgba(20, 20, 20, 0.8);
+	width: 100%;
+}
+
+.Landing .Title h1{
+	font-size: 70px;
+	font-weight: bold;
+	color: #c3c4c7;
+}
+
+.Landing .Information{
+	position: absolute;
+	left: 10px;
+	top: 30%;
+	width: 40%;
+	padding: 0px 20px;
+	border-radius: 10px;
+	z-index: 1000000;
+
+	background-color: rgba(20, 20, 20, 0.8);
+	box-shadow: 0 0 10px 2px  rgba(20, 20, 20, 0.8);
+	
+	font-weight: bold;
+	color: #c3c4c7;
+
+	opacity: 0.2;
+	animation: ShowInfo 8.5s;
+	transition: .5s all ease;
+}
+.Landing .Information:hover{
+	opacity: 1;
+}
+.Landing .Information h4{
+	font-size: 3rem;
+	margin: 15px 0;
+}
+.Landing .Information p{
+	font-size: 1.8rem;
+}
+
+.FLASHBANG{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 10000;
+	background-color: rgba(255, 255, 255, 0);
+	animation: FLASHBANG 7s;
+}
+
+
+/* ANIMATIONS */
+@keyframes StartButton {
+  0% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0;
+  }
+  100%{
+  	opacity: 1;
+  }
+}
+@keyframes ShowInfo {
+  0% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0;
+  }
+  100%{
+  	opacity: 0.2;
+  }
+}
 @keyframes blink {
   0% {
     opacity: 0;
@@ -49,41 +132,115 @@
   	opacity: 0;
   }
 }
-
-.Landing .Title{
-	position: absolute;
-	text-align: center;
-	animation-name: SlideFromTop;
-	animation-duration: 10s;
-
-	background-color: rgba(20, 20, 20, 0.8);
-	width: 100%;
-	left: -50%;
-}
-
-.Landing .Title h1{
-	font-size: 90px;
-	font-family: Garamond;
-	font-weight: bold;
-	color: #c3c4c7;
-}
-
 @keyframes SlideFromTop {
   0% {
     top: -100%;
-    left: 0;
-  }
-  20%{
-  	top: 0;
-  	left: 0;
-  }
-  40% {
-    left: 0;
   }
   100%{
-  	left: -50%;
+  	top: 0;
   }
 }
-@keyframes SlideToLeft {
-  
+@keyframes FLASHBANG {
+  0% {
+    background-color: rgba(255, 255, 255, 0);
+  }
+  50% {
+    background-color: rgba(255, 255, 255, 0);
+  }
+  60%{
+  	background-color: rgba(255, 255, 255, 1);
+  }
+  100%{
+  	background-color: rgba(255, 255, 255, 0);
+  }
+}
+
+/* SPRITES */
+
+.LinkSprite{
+	position: absolute;
+	bottom: 0;
+	left: 20%;
+
+	z-index: 100;
+	animation: RunningLink 8s;
+}
+.LinkSprite img{
+	height: 200px;
+	width: 200px;
+}
+
+.SonicSprite{
+	position: absolute;
+	bottom: 0;
+	left: 80%;
+
+	z-index: 100;
+	animation: RunningSonic 8s;
+}
+.SonicSprite img{
+	height: 140px;
+	width: 140px;
+}
+
+.PikachuSprite{
+	position: absolute;
+	bottom: 0;
+	left: 65%;
+
+	z-index: 100;
+	animation: RunningPikachu 8s;
+}
+.PikachuSprite img{
+	height: 110px;
+	width: 150px;
+}
+
+.KirbySprite{
+	position: absolute;
+	bottom: 0;
+	left: 5%;
+
+	z-index: 100;
+	animation: RunningKirby 8s;
+}
+.KirbySprite img{
+	height: 150px;
+	width: 150px;
+}
+
+
+/* SPRITES ANIMATIONS */
+
+@keyframes RunningLink {
+  0% {
+    left: -50%;
+  }
+  100%{
+  	left: 20%;
+  }
+}
+@keyframes RunningSonic {
+  0% {
+    left: -50%;
+  }
+  100%{
+  	left: 80%;
+  }
+}
+@keyframes RunningPikachu {
+  0% {
+    left: -50%;
+  }
+  100%{
+  	left: 65%;
+  }
+}
+@keyframes RunningKirby {
+  0% {
+    left: -50%;
+  }
+  100%{
+  	left: 5%;
+  }
 }

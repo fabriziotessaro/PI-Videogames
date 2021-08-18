@@ -1,8 +1,10 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
+// components
+import Loading from './../Loading/Loading.js';
 
 // actions
 import {getVideogames} from './../../Actions/Actions.js';
@@ -14,6 +16,7 @@ export default function Navbar() {
     navMenu: false,
     quitMenu: false
   });
+  const [loading, setLoading] = useState(false);
 
   // store stuff
   const dispatch = useDispatch();
@@ -34,8 +37,15 @@ export default function Navbar() {
     if(videogames.length < 100){
       dispatch(getVideogames(value));
       setSearch("");
+      setLoading(true); // pone la pantalla de carga
     }
   }
+  // la quita luego de que se carguen los juegos del home
+  useEffect(() => {
+    if(videogames.length >= 100){
+      setLoading(false);
+    }
+  },[videogames]);
 
   function showMenuHandle(menu){
     if(menu === "Menu"){
@@ -63,6 +73,9 @@ export default function Navbar() {
 
   return (
     <div className="Navbar">
+    {loading &&
+      <Loading/>
+    }
       <div className="Options">
         <a onClick={() => showMenuHandle("Menu")}>Menu</a>
         <div className={showMenu.navMenu ? "NavMenu NavMenuActive" : "NavMenu"}>

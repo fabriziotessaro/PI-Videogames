@@ -5,6 +5,7 @@ import './Videogames.css';
 // components
 import OneVideogame from './../OneVideogame/OneVideogame.js';
 import Filters from './../Filters/Filters.js';
+import Loading from './../Loading/Loading.js';
 
 // actions
 import {getVideogames} from './../../Actions/Actions.js';
@@ -14,9 +15,10 @@ export default function Videogames() {
   const [videogamesList, setVideogamesList] = useState([]);
   const [pageProperties, setPageProperties] = useState({
     pageNum: 1,
-    pageCant:1,
+    pageCant: 1,
     actualPages:[1]
   });
+  const [loading, setLoading] = useState(true);
 
   // store stuff
   const dispatch = useDispatch();
@@ -42,9 +44,36 @@ export default function Videogames() {
 
       })
     }
+    if(!loading){
+      setLoading(true);
+    }
 
     setVideogamesList(actualPage);
   },[videogames, pageProperties.pageNum]);
+
+  // Control de la pantalla de carga
+  useEffect(() => {
+    // si carga el Home
+    if(videogamesList.length !== 0 && videogames.length > 15 && pageProperties.pageNum === 1){
+     setLoading(false);
+    }
+    if(videogamesList.length !== 0 && videogames.length > 15 && pageProperties.pageNum !== 1){
+     setLoading(false);
+    }
+    // si se hace una busqueda
+    else if(videogamesList.length !== 0 && videogames.length <= 15 && pageProperties.pageNum === 1){
+      setTimeout(() => {setLoading(false)},2000);
+    }
+    else if(videogamesList.length !== 0 && videogames.length <= 15 && pageProperties.pageNum !== 1){
+      setTimeout(() => {setLoading(false)},2000);
+    }
+  },[videogames, videogamesList])
+  // si se cambia de pagina, no aparece la pantalla de carga
+  useEffect(() => {
+    if(videogamesList.length !== 0){
+      setLoading(false)
+    }
+  },[pageProperties.pageNum])
 
   //funcion para cambiar de pagina de la lista de videojuegos
   function changePage(pageSelected){
@@ -111,6 +140,9 @@ export default function Videogames() {
   return (
     <div className="Videogames">
       <Filters />
+      {loading &&
+        <Loading />
+      }
       <div className="VideogamesList">
         {videogamesList && videogamesList.map((game, index) => 
           <OneVideogame
@@ -118,6 +150,7 @@ export default function Videogames() {
             id={game.id}
             name={game.name}
             img={game.background_image}
+            rating={game.rating}
             genres={game.categories}
             platforms={game.platforms}
           />)

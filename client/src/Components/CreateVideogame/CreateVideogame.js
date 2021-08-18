@@ -38,8 +38,11 @@ export default function CreateVideogame(){
   // si hay una respuesta, la muestra una vez y luego la borra
   useEffect(() => {
     if(answer.hasOwnProperty("created")){
-      alert(answer.created);
-      setAnswer({});
+      setTimeout(() => {
+        // al enviar false, setea la respuesta como vacia 
+        dispatch(postVideogame(false)); 
+        setAnswer({});
+      },3000);
     }
   },[answer]);
 
@@ -117,113 +120,122 @@ export default function CreateVideogame(){
   }
   return (
     <div className="CreateVideogame">
-        <div className="CreationForm">
-          <h1>Agrega un Videojuego</h1>
-          <form onSubmit={(e) => submitHandle(e)}>
-            <div className="Column1">
-              <div className="FormField">
-                <h3>Titulo</h3>
-                <input className={errors.name && "Error"} name="name" value={formState.name} onChange={(e) => changeHandle(e)}/>
-                {errors.name && <h4>{errors.name}</h4>}
-              </div>
-              <div className="FormField">
-                <h3>Fecha de Lanzamiento</h3>
-                <input className={errors.releaseDate && "Error"} type="date" name="releaseDate" value={formState.releaseDate} onChange={(e) => changeHandle(e)}/>
-                {errors.releaseDate && <h4>{errors.releaseDate}</h4>}
-              </div>
-              <div className="FormField">
-                <h3>Rating</h3>
-                <input className={errors.rating && "Error"} name="rating" value={formState.rating} onChange={(e) => changeHandle(e)}/>
-                {errors.rating && <h4>{errors.rating}</h4>}
-              </div>
-            </div>
-            <div className="Column2">  
-              <div className="FormField">
-                <h3>Generos</h3>
-                <div className="SelectField">
-                  <select className={errors.genres && "Error"} name="genres">
-                      <option value=""></option>
-                    {categories && categories.map(genre =>
-                      <option key={genre.id} value={genre.id}>{genre.name}</option>
-                    )}
-                  </select>
-                  <button onClick={() => addSelected('genres')} type="button">+</button>
-                </div>
-                {errors.genres && <h4>{errors.genres}</h4>}
-              </div>
-              <div className="FormField">
-                <h3>Plataformas</h3>
-                <div className="SelectField">
-                  <select className={errors.platforms && "Error"} name="platforms">
-                      <option value=""></option>
-                    {platforms && platforms.map(plat =>
-                      <option key={plat.id} value={plat.id}>{plat.name}</option>
-                    )}
-                  </select>
-                  <button onClick={() => addSelected('platforms')} type="button">+</button>
-                </div>
-                {errors.platforms && <h4>{errors.platforms}</h4>}
-              </div>
-              <div className="FormField">
-                <h3>Imagen</h3>
-                <input className={errors.background_image && "Error"} name="background_image" 
-                onChange={(e) => changeHandle(e)}/>
-                {errors.background_image && <h4>{errors.background_image}</h4>}
-              </div>
-            </div>
-            <div className="DescriptionField">
-              <div className="FormField">
-                <h3>Descripcion</h3>
-                <textarea className={errors.description && "Error"} name="description" onChange={(e) => changeHandle(e)}/>
-                {errors.description && <h4>{errors.description}</h4>}
-              </div>
-            </div>
-            <div className="FormFooter">
-              <button>Agregar</button>
-            </div>
-          </form>
+      {answer.hasOwnProperty("created") &&
+        <div className="AnswerPopUp">
+        {answer.created ?
+          <h2>¡Videojuego agregado con exito!</h2>
+          :
+          <h2 className="Exists">¡El Videojuego ya existe!</h2>
+        }
         </div>
-        <div className="PrevView">
-          <div className="ViewImage">
-          {formState.background_image !== "" && !errors.background_image ? 
-            <img src={formState.background_image}/> 
-            :
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
-            </svg>
-          }
-          </div>
-          <div className="ViewSelected">
-            <div className="SelectList Genres">
-              <h4>Generos seleccionados</h4>
-              <div className="Collection">
-                {formState.genres.length === 0 ? <h4 className="Empty">No hay generos</h4> : 
-                  formState.genres.map(genre => { 
-                    let genreName = categories.find(cat => cat.id === genre).name
-                    return(
-                      <h5 key={genre}>{genreName}
-                      <span onClick={() => deleteSelected({name:"genres", value:genre})}> X </span></h5>
-                    )
-                  })
-                }
-              </div>
+      }
+      <div className="CreationForm">
+        <h1>Agrega un Videojuego</h1>
+        <form onSubmit={(e) => submitHandle(e)}>
+          <div className="Column1">
+            <div className="FormField">
+              <h3>Titulo</h3>
+              <input className={errors.name && "Error"} name="name" value={formState.name} onChange={(e) => changeHandle(e)}/>
+              {errors.name && <h4>{errors.name}</h4>}
             </div>
-            <div className="SelectList Platforms">
-              <h4>Plataformas seleccionadas</h4>
-              <div className="Collection">
-                {formState.platforms.length === 0 ? <h4 className="Empty">No hay plataformas</h4> :
-                  formState.platforms.map(plat => {
-                    let platName = platforms.find(pat => pat.id === plat).name
-                    return(
-                      <h5 key={plat}>{platName} 
-                      <span onClick={() => deleteSelected({name:"platforms", value:plat})}> X </span></h5>
-                    )
-                  })
-                }
-              </div>
+            <div className="FormField">
+              <h3>Fecha de Lanzamiento</h3>
+              <input className={errors.releaseDate && "Error"} type="date" name="releaseDate" value={formState.releaseDate} onChange={(e) => changeHandle(e)}/>
+              {errors.releaseDate && <h4>{errors.releaseDate}</h4>}
+            </div>
+            <div className="FormField">
+              <h3>Rating</h3>
+              <input className={errors.rating && "Error"} name="rating" value={formState.rating} onChange={(e) => changeHandle(e)}/>
+              {errors.rating && <h4>{errors.rating}</h4>}
             </div>
           </div>
+          <div className="Column2">  
+            <div className="FormField">
+              <h3>Generos</h3>
+              <div className="SelectField">
+                <select className={errors.genres && "Error"} name="genres">
+                    <option value=""></option>
+                  {categories && categories.map(genre =>
+                    <option key={genre.id} value={genre.id}>{genre.name}</option>
+                  )}
+                </select>
+                <button onClick={() => addSelected('genres')} type="button">+</button>
+              </div>
+              {errors.genres && <h4>{errors.genres}</h4>}
+            </div>
+            <div className="FormField">
+              <h3>Plataformas</h3>
+              <div className="SelectField">
+                <select className={errors.platforms && "Error"} name="platforms">
+                    <option value=""></option>
+                  {platforms && platforms.map(plat =>
+                    <option key={plat.id} value={plat.id}>{plat.name}</option>
+                  )}
+                </select>
+                <button onClick={() => addSelected('platforms')} type="button">+</button>
+              </div>
+              {errors.platforms && <h4>{errors.platforms}</h4>}
+            </div>
+            <div className="FormField">
+              <h3>Imagen</h3>
+              <input className={errors.background_image && "Error"} name="background_image" 
+              onChange={(e) => changeHandle(e)}/>
+              {errors.background_image && <h4>{errors.background_image}</h4>}
+            </div>
+          </div>
+          <div className="DescriptionField">
+            <div className="FormField">
+              <h3>Descripcion</h3>
+              <textarea className={errors.description && "Error"} name="description" onChange={(e) => changeHandle(e)}/>
+              {errors.description && <h4>{errors.description}</h4>}
+            </div>
+          </div>
+          <div className="FormFooter">
+            <button>Agregar</button>
+          </div>
+        </form>
+      </div>
+      <div className="PrevView">
+        <div className="ViewImage">
+        {formState.background_image !== "" && !errors.background_image ? 
+          <img src={formState.background_image}/> 
+          :
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+          </svg>
+        }
         </div>
+        <div className="ViewSelected">
+          <div className="SelectList Genres">
+            <h4>Generos seleccionados</h4>
+            <div className="Collection">
+              {formState.genres.length === 0 ? <h4 className="Empty">No hay generos</h4> : 
+                formState.genres.map(genre => { 
+                  let genreName = categories.find(cat => cat.id === genre).name
+                  return(
+                    <h5 key={genre}>{genreName}
+                    <span onClick={() => deleteSelected({name:"genres", value:genre})}> X </span></h5>
+                  )
+                })
+              }
+            </div>
+          </div>
+          <div className="SelectList Platforms">
+            <h4>Plataformas seleccionadas</h4>
+            <div className="Collection">
+              {formState.platforms.length === 0 ? <h4 className="Empty">No hay plataformas</h4> :
+                formState.platforms.map(plat => {
+                  let platName = platforms.find(pat => pat.id === plat).name
+                  return(
+                    <h5 key={plat}>{platName} 
+                    <span onClick={() => deleteSelected({name:"platforms", value:plat})}> X </span></h5>
+                  )
+                })
+              }
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -253,7 +265,7 @@ function validateForm(form,submit){
   }
 
   const regUrl = /^(ftp|http|https):\/\/[^ "]+$/;
-  if(!regUrl.test(form.background_image)){
+  if(!regUrl.test(form.background_image) && form.background_image.trim() !== ""){
     errors.background_image = "URL no valida.";
   }
   

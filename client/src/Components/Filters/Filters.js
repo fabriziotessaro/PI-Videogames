@@ -22,6 +22,7 @@ export default function Filters() {
   const dispatch = useDispatch();
   const categories = useSelector(state => state.genres);
   const platforms = useSelector(state => state.platforms);
+  const videogames = useSelector(state => state.videogamesLoaded);
 
   // despacha estados del store cuando se monta el componente
   useEffect(() => {
@@ -33,6 +34,16 @@ export default function Filters() {
   useEffect(() => {
     dispatch(getFilteredVideogames(filterList))
   },[filterList]);
+
+  // reinicia los filtros si se hace una busqueda o se vuelve a inicio
+  useEffect(() => {
+    setFilterList({
+      categories: "default",
+      platforms: "default",
+      isMyGame: "default",
+      order: "default"
+    });
+  },[videogames]);
 
   // funcion para cambiar el estado de los filtros
   function filterHandle(event){
