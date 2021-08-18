@@ -12,12 +12,12 @@ export function getVideogames(name){
 	return async function(dispatch){
 		var data;
 		if(name){
-
 			data = await axios.get(`http://localhost:3001/videogames?name=${name}`);
 		} 
 		else {
 		 	data = await axios.get("http://localhost:3001/videogames");
 		}
+
 		return dispatch({type: GET_VIDEOGAMES, payload: data.data});
 	}
 }
@@ -31,8 +31,13 @@ export function getVideogameDetail(id){
 
 export function postVideogame(videogame){
 	return async function(dispatch){
-		const data = await axios.post(`http://localhost:3001/videogame`, {form:videogame});
-		return dispatch({type: POST_VIDEOGAME, payload: data.data});
+		if(videogame){
+			const data = await axios.post(`http://localhost:3001/videogame`, {form:videogame});
+			return dispatch({type: POST_VIDEOGAME, payload: data.data});
+		}
+		else{
+			return dispatch({type: POST_VIDEOGAME, payload: videogame});
+		}
 	}
 }
 

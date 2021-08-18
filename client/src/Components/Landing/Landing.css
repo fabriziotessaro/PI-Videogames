@@ -7,6 +7,7 @@
 	height: 100vh;
 
 	display: grid;
+	animation: FromTheDarkness 7s;
 }
 
 .Access{
@@ -152,6 +153,17 @@
   }
   100%{
   	background-color: rgba(255, 255, 255, 0);
+  }
+}
+@keyframes FromTheDarkness {
+  0% {
+    background-color: rgba(18, 17, 17, 1);
+  }
+  20% {
+    background-color: rgba(18, 17, 17, 1);
+  }
+  100%{
+  	background-color: rgba(18, 17, 17, 0.5);
   }
 }
 

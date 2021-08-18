@@ -41,7 +41,7 @@ videogame.get("/:idVideogame", async (req, res, next) => {
 			// Si no hay resultados
 		}
 		else{
-			res.status(404).json({msg: "Game Not Found"});
+			res.status(200).json({msg: "Game Not Found"});
 		}
 	} catch(error){
 		next(error);

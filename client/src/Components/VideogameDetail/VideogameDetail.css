@@ -21,32 +21,72 @@
 	border-radius: 5px;
 	margin: auto;
 }
+.Image svg{
+	height: 150px;
+	width: 150px;
+	margin: auto;
+	color: #828282;
+	margin: 100px 200px;
+}
 
 .DetailInformation{
 	grid-area: b;
 
 	background-color: rgba(18, 17, 17, 0.9);
 	padding: 0px 50px;
+	width: 85%;
+	border-radius: 5px;
 	margin: auto;
 }
 
-.DetailInformation .Video-Genres,
-.DetailInformation .Video-Platforms{
+.DetailInformation .Detail-Genres,
+.DetailInformation .Detail-Platforms{
 	background: transparent;
 	padding: 5px 0;
 	margin: 0;
 	text-align: left;
 	border-radius: 0 0 5px 5px;
-	overflow-x: hidden;
 	display: block;
 	position: relative;
+	overflow-x: scroll;
 	width: 100%;
 }
-
-.DetailInformation .Video-Genres .Genre,
-.DetailInformation .Video-Platforms .Platform{
-	font-size: 1.4rem;
+.Detail-Genres::-webkit-scrollbar,
+.Detail-Platforms::-webkit-scrollbar{
+  height: 8px;
+  border-radius: 20px;
 }
+ 
+.Detail-Genres::-webkit-scrollbar-track,
+.Detail-Platforms::-webkit-scrollbar-track{
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+}
+ 
+.Detail-Genres::-webkit-scrollbar-thumb,
+.Detail-Platforms::-webkit-scrollbar-thumb{
+  background-color: #262626;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  height: 8px;
+}
+
+.DetailInformation .Detail-Genres .Genre,
+.DetailInformation .Detail-Platforms .Platform{
+	position: ;
+	font-size: 1.4rem;
+	background-color: rgba(10, 10, 10);
+	border-radius: 6px;
+	padding: 4px 8px;
+	margin: 3px;
+	width: auto;
+	text-align: center;
+	font-weight: bold;
+	color: #c3c4c7;
+}
+
+
 
 .DetailInformation .Title{
 	font-size: 2.5rem;
@@ -73,7 +113,7 @@
 
 .Description-Conteiner{
 	grid-area: c;
-
+	position: relative;
 	background-color: rgba(18, 17, 17, 0.9);
 	padding: 30px 40px;
 	margin: 50px 0;
@@ -86,6 +126,7 @@
 }
 
 .Description-Conteiner .Description{
+	position: relative;
 	font-size: 1.8rem;
 	font-weight: bold;
 	color: #a8a8a8;

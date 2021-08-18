@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
 import './Videogames.css';
+
+// sprite error
+import GameOverSprite from '../../Styles/Images/Loading/tumblr_5aeabd8d5a03b654d026c658e05378fc_df3aa529_250.gif';
 
 // components
 import OneVideogame from './../OneVideogame/OneVideogame.js';
@@ -16,7 +20,7 @@ export default function Videogames() {
   const [pageProperties, setPageProperties] = useState({
     pageNum: 1,
     pageCant: 1,
-    actualPages:[1]
+    actualPages:[1,2,3]
   });
   const [loading, setLoading] = useState(true);
 
@@ -34,44 +38,68 @@ export default function Videogames() {
   // actualiza el componente cuando se actualiza el estado de `videogamesList` 
   // o los filtros o se cambia de pagina
   useEffect(() => {
-    var actualPage = videogames.slice((pageProperties.pageNum*9)-9, 9*pageProperties.pageNum);
-    if(videogames.length > 9){
-      setPageProperties({
-          ...pageProperties,
-          pageCant: Math.ceil(videogames.length / 9),
-          actualPages: videogames.length <= 15 ? 
-          [1,2] : [1,2,3]
+    if(!videogames.hasOwnProperty("msg")){ // mientras no haya un mensaje de error
+      var actualPage = videogames.slice((pageProperties.pageNum*9)-9, 9*pageProperties.pageNum);
+      if(videogames.length > 9){
+        if(videogames.length <= 9){
+          setPageProperties({
+            ...pageProperties,
+            pageCant: Math.ceil(videogames.length / 9),
+            actualPages: [1] 
+          })
+        }
+        else if(videogames.length <= 15){
+          setPageProperties({
+            ...pageProperties,
+            pageCant: Math.ceil(videogames.length / 9),
+            actualPages: [1,2]
+          })
+        }
+        else{
+          setPageProperties({
+            ...pageProperties,
+            pageCant: Math.ceil(videogames.length / 9)
+          })
+        }
+      }
+      if(!loading){
+        setLoading(true);
+      }
 
-      })
+      setVideogamesList(actualPage);
     }
-    if(!loading){
-      setLoading(true);
+    else{ // si lo hay..
+      setVideogamesList([]);
     }
-
-    setVideogamesList(actualPage);
+    
   },[videogames, pageProperties.pageNum]);
 
   // Control de la pantalla de carga
   useEffect(() => {
     // si carga el Home
-    if(videogamesList.length !== 0 && videogames.length > 15 && pageProperties.pageNum === 1){
-     setLoading(false);
-    }
-    if(videogamesList.length !== 0 && videogames.length > 15 && pageProperties.pageNum !== 1){
-     setLoading(false);
-    }
-    // si se hace una busqueda
-    else if(videogamesList.length !== 0 && videogames.length <= 15 && pageProperties.pageNum === 1){
-      setTimeout(() => {setLoading(false)},2000);
-    }
-    else if(videogamesList.length !== 0 && videogames.length <= 15 && pageProperties.pageNum !== 1){
-      setTimeout(() => {setLoading(false)},2000);
+    if(!videogamesList.hasOwnProperty("msg")){
+
+      if(videogamesList.length !== 0 && videogames.length > 15 && pageProperties.pageNum === 1){
+       setLoading(false);
+      }
+      if(videogamesList.length !== 0 && videogames.length > 15 && pageProperties.pageNum !== 1){
+       setLoading(false);
+      }
+      // si se hace una busqueda
+      else if(videogamesList.length !== 0 && videogames.length <= 15 && pageProperties.pageNum === 1){
+        setTimeout(() => {setLoading(false)},2000);
+      }
+      else if(videogamesList.length !== 0 && videogames.length <= 15 && pageProperties.pageNum !== 1){
+        setTimeout(() => {setLoading(false)},2000);
+      }
     }
   },[videogames, videogamesList])
   // si se cambia de pagina, no aparece la pantalla de carga
   useEffect(() => {
-    if(videogamesList.length !== 0){
-      setLoading(false)
+    if(!videogamesList.hasOwnProperty("msg")){
+      if(videogamesList.length !== 0){
+        setLoading(false)
+      }
     }
   },[pageProperties.pageNum])
 
@@ -143,8 +171,22 @@ export default function Videogames() {
       {loading &&
         <Loading />
       }
+      {videogames.hasOwnProperty("msg") &&
+        <div className="GameNotFound">
+          <div className="GameOver"> 
+            <h1>GAME OVER</h1>
+            <h3>Game Not Found...</h3>
+            <div className="TryAgain">
+              <h2>Try Again?</h2>
+              <Link className="Yes" to="/home" onClick={() => {dispatch(getVideogames(false)); setLoading(true);}}>Yes</Link>
+              <Link className="No" to="/">No</Link>
+            </div>
+          </div>
+          <img src={GameOverSprite}/>
+        </div>
+      }
       <div className="VideogamesList">
-        {videogamesList && videogamesList.map((game, index) => 
+        {!videogames.hasOwnProperty("msg") ? videogamesList && videogamesList.map((game, index) => 
           <OneVideogame
             key={index}
             id={game.id}
@@ -154,6 +196,8 @@ export default function Videogames() {
             genres={game.categories}
             platforms={game.platforms}
           />)
+        :
+        <div/>
         }
       </div>
       <div className="PageButtons">

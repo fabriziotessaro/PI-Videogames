@@ -8,11 +8,11 @@
 
 	display: flex;
 	justify-content: center;
-	z-index: 100000;
+	z-index: 1000000;
 }
 
 .Loading img{
 	margin: auto;
-	width: 200px;
+	width: 250px;
 	height: 200px;
 }

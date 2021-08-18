@@ -10,6 +10,7 @@ import Loading from './../Loading/Loading.js';
 import {getVideogames} from './../../Actions/Actions.js';
 
 export default function Navbar() {
+
   // estados
   const [search, setSearch] = useState("");
   const [showMenu, setShowMenu] = useState({
@@ -63,11 +64,11 @@ export default function Navbar() {
         })
       }
     }
-    else{
+    else if(menu === "quitMenu"){
       setShowMenu({
         ...showMenu,
         quitMenu: !showMenu.quitMenu
-      })
+      });
     }
   }
 

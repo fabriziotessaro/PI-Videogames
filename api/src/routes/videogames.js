@@ -55,7 +55,7 @@ videogames.get("/", async (req, res, next) => {
 			}
 			// sino, avisa
 			else{
-				res.status(404).json({msg: "Game Not Found"});
+				res.status(200).json({msg: "Game Not Found"});
 			}
 		}
 		// Traer todos los juegos

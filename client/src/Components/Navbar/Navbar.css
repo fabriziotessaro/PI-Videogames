@@ -57,7 +57,6 @@
 	border-color: #171717;
 }
 
-
 .Search button{
 	color: #c3c4c7;
 	font-size: 1.8rem;
@@ -75,6 +74,10 @@
 	cursor: pointer;
 	background-color: #c3c4c7;
 	color: #121212;
+}
+
+.Search button a{
+	text-decoration: none;
 }
 
 .NavMenu{

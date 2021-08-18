@@ -19,21 +19,47 @@ const initialState = {
 export default function rootReducer(state = initialState, action){
 	switch(action.type){
 		case GET_VIDEOGAMES:
-		return{
-			...state,
-			videogamesLoaded: action.payload.games,
-			videogamesList: action.payload.games
-		};
+		if(action.payload.hasOwnProperty("msg")){
+			console.log(action.payload.msg)
+			return{
+				...state,
+				videogamesList: action.payload
+			};
+		}
+		else{
+			return{
+				...state,
+				videogamesLoaded: action.payload.games,
+				videogamesList: action.payload.games
+			};	
+		}
 		case GET_VIDEOGAME_DETAIL:
-		return{
-			...state,
-			videogameDetail: action.payload
-		};
+		if(action.payload.hasOwnProperty("msg")){
+			console.log(action.payload.msg)
+			return{
+				...state,
+				videogameDetail: action.payload
+			};
+		}
+		else{
+			return{
+				...state,
+				videogameDetail: action.payload
+			};
+		}
 		case POST_VIDEOGAME:
-		return{
-			...state,
-			postAnswer: action.payload
-		};
+		if(action.payload){
+			return{
+				...state,
+				postAnswer: action.payload
+			};
+		}
+		else{
+			return{
+				...state,
+				postAnswer: {}
+			};
+		}
 		case GET_GENRES:
 		return{
 			...state,

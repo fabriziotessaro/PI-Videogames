@@ -12,6 +12,7 @@ export default function CreateVideogame(){
     releaseDate:"",
     rating:"",
     background_image:"",
+    estado:"",
     genres:[],
     platforms:[]
   });
@@ -147,6 +148,11 @@ export default function CreateVideogame(){
               <h3>Rating</h3>
               <input className={errors.rating && "Error"} name="rating" value={formState.rating} onChange={(e) => changeHandle(e)}/>
               {errors.rating && <h4>{errors.rating}</h4>}
+            </div>
+
+            <div className="FormField">
+              <h3>Estado</h3>
+              <input name="estado" value={formState.estado} onChange={(e) => changeHandle(e)}/>
             </div>
           </div>
           <div className="Column2">  
